@@ -1,0 +1,15 @@
+image: node:7.8
+
+before_script:
+  - npm install
+
+stages:
+  - build
+  - deploy
+
+job1:
+  stage: build
+  script:
+    - npm run build
+  only:
+    - master

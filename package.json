@@ -1,7 +1,8 @@
 {
   "name": "schnitzel",
   "scripts": {
-    "start": "webpack-dev-server --inline --progress --config build/config/webpack.config.js --port 8080"
+    "start": "webpack-dev-server --inline --progress --config build/config/webpack.config.js --port 8080",
+    "build": "webpack --config build/config/webpack.config.js --progress --profile --bail"
   },
   "dependencies": {
     "abstract-state-router": "^5.16.2",
