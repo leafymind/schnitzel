@@ -1,15 +1,32 @@
-<h1>Overview</h1>
-
-<!-- FIXME nested component :( -->
-<Challenge title="Test" description="lol" link="/bla"></Challenge>
+<div class="challenges">
+  {{#each challenges as challenge}}
+    <ChallengeItem title="{{challenge.title}}" desc="{{challenge.desc}}" link="{{challenge.link}}" />
+  {{/each}}
+</div>
 
 <script>
-  import Challenge from './components/challenge-item/challenge-item.svelte';
+  import ChallengeItem from './components/challenge-item/challenge-item.svelte';
 
   export default {
+    data()
+    {
+      return {
+        challenges:
+        [
+          {
+            title: 'Challenge A',
+            desc: 'Auf den Spuren von Bla bla...'
+          },
+          {
+            title: 'Challenge B',
+            desc: 'Ab in die Natur...'
+          }
+        ]
+      };
+    },
     components:
     {
-      Challenge
+      ChallengeItem
     }
   };
 </script>

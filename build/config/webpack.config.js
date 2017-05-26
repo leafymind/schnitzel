@@ -33,7 +33,7 @@ module.exports = {
         use:
         [
           'svelte-loader',
-          'postcss-html-loader'
+          // 'postcss-html-loader' // FIXME
         ]
       }
     ]
