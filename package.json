@@ -1,0 +1,39 @@
+{
+  "name": "schnitzel",
+  "scripts": {
+    "start": "webpack-dev-server --inline --progress --config build/config/webpack.config.js --port 8080"
+  },
+  "dependencies": {
+    "abstract-state-router": "^5.16.2",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "koa": "^2.2.0",
+    "koa-66": "^1.0.1",
+    "route-decorators": "^0.2.2",
+    "sausage-router": "^1.1.0",
+    "svelte-state-renderer": "^1.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.1.1",
+    "css-mqpacker": "^6.0.0",
+    "cssnext": "^1.8.4",
+    "html-webpack-plugin": "^2.28.0",
+    "open-browser-webpack-plugin": "^0.0.5",
+    "postcss-hexrgba": "^0.2.1",
+    "postcss-html-loader": "bbuhler/postcss-html-loader",
+    "svelte": "^1.20.2",
+    "svelte-loader": "^2.0.1",
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.4.5"
+  },
+  "babel": {
+    "plugins": [
+      "transform-decorators-legacy",
+      "transform-es2015-modules-commonjs"
+    ]
+  },
+  "postcss": {
+    "config": "build/config/postcss.config.js"
+  }
+}
