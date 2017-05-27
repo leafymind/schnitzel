@@ -4,8 +4,8 @@ export default function(stateRouter)
 {
   stateRouter.addState
   ({
-		name: 'app.create',
-		route: '/new',
+    name: 'app.create',
+    route: '/new',
     template: ChallengeCreate
-	});
+  });
 }

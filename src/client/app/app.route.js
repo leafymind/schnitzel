@@ -8,27 +8,27 @@ export default function(stateRouter)
 {
   stateRouter.addState
   ({
-		name: 'app',
+    name: 'app',
     template: App,
-		defaultChild: 'overview',
-		// resolve: function resolve(data, parameters, cb) {
-		// 	const currentUser = model.getCurrentUser()
+    defaultChild: 'overview',
+    // resolve: function resolve(data, parameters, cb) {
+    // 	const currentUser = model.getCurrentUser()
     //
-		// 	if (currentUser.name) {
-		// 		cb(null, {
-		// 			currentUser
-		// 		})
-		// 	} else {
-		// 		cb.redirect('login')
-		// 	}
-		// },
-		// activate: function({ domApi: svelte }) {
-		// 	svelte.on('logout', function() {
-		// 		model.saveCurrentUser(null)
-		// 		stateRouter.go('login')
-		// 	})
-		// }
-	});
+    // 	if (currentUser.name) {
+    // 		cb(null, {
+    // 			currentUser
+    // 		})
+    // 	} else {
+    // 		cb.redirect('login')
+    // 	}
+    // },
+    // activate: function({ domApi: svelte }) {
+    // 	svelte.on('logout', function() {
+    // 		model.saveCurrentUser(null)
+    // 		stateRouter.go('login')
+    // 	})
+    // }
+  });
 
   ChallengeOverviewRoute(stateRouter);
   ChallengeCreateRoute(stateRouter);
