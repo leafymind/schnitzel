@@ -5,7 +5,6 @@ export default function(stateRouter)
   stateRouter.addState
   ({
 		name: 'app.overview',
-		route: '/',
     template: ChallengeOverview
 	});
 }

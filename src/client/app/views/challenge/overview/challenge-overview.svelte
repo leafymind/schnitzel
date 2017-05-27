@@ -1,32 +1,22 @@
 <div class="challenges">
   {{#each challenges as challenge}}
-    <ChallengeItem title="{{challenge.title}}" desc="{{challenge.desc}}" link="{{challenge.link}}"></ChallengeItem>
+    <ChallengeItem bind:title="challenge.title" bind:desc="challenge.desc" link="{{asr.makePath('app.play', { id: challenge.id })}}"></ChallengeItem>
   {{/each}}
 </div>
 
 <script>
   import ChallengeItem from './components/challenge-item/challenge-item.svelte';
+  import { challenges } from '../../../model/challenges.js';
 
   export default {
-    data()
-    {
-      return {
-        challenges:
-        [
-          {
-            title: 'Challenge A',
-            desc: 'Auf den Spuren von Bla bla...'
-          },
-          {
-            title: 'Challenge B',
-            desc: 'Ab in die Natur...'
-          }
-        ]
-      };
-    },
     components:
     {
       ChallengeItem
+    },
+
+    data()
+    {
+      return { challenges };
     }
   };
 </script>

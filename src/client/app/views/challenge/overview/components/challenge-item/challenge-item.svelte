@@ -4,7 +4,7 @@
   </div>
   <div class="mdl-card__supporting-text">{{desc}}</div>
   <div class="mdl-card__actions mdl-card--border">
-    <a class="mdl-button mdl-button--colored" href="{{lenk}}">
+    <a class="mdl-button mdl-button--colored" href="{{link}}">
       Challenge starten
     </a>
   </div>
@@ -18,8 +18,9 @@
 <style>
   .demo-card-wide.mdl-card
   {
-    width: 100%;
+    width: calc(100% - 2rem);
     max-width: 512px;
+    margin: 1rem;
   }
 
   .demo-card-wide > .mdl-card__title

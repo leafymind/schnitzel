@@ -26,6 +26,13 @@ module.exports = {
     chunkFilename: '[name].[id].js'
   },
 
+  resolveLoader: {
+    alias:
+    {
+      'fix-ref-attr-loader': path.join(__dirname, '../loader/fix-ref-attrs')
+    }
+  },
+
   module: {
     rules: [
       {
@@ -33,6 +40,7 @@ module.exports = {
         use:
         [
           'svelte-loader',
+          'fix-ref-attr-loader',
           'postcss-html-loader'
         ]
       }

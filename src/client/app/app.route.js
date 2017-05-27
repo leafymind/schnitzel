@@ -2,13 +2,13 @@ import App from './app.svelte';
 
 import ChallengeOverviewRoute from './views/challenge/overview/challenge-overview.route';
 import ChallengeCreateRoute from './views/challenge/create/challenge-create.route';
+import ChallengePlayRoute from './views/challenge/play/challenge-play.route';
 
 export default function(stateRouter)
 {
   stateRouter.addState
   ({
 		name: 'app',
-		route: '/',
     template: App,
 		defaultChild: 'overview',
 		// resolve: function resolve(data, parameters, cb) {
@@ -32,4 +32,5 @@ export default function(stateRouter)
 
   ChallengeOverviewRoute(stateRouter);
   ChallengeCreateRoute(stateRouter);
+  ChallengePlayRoute(stateRouter);
 }
