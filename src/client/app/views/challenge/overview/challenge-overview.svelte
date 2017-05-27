@@ -1,6 +1,6 @@
 <div class="challenges">
   {{#each challenges as challenge}}
-    <ChallengeItem title="{{challenge.title}}" desc="{{challenge.desc}}" link="{{challenge.link}}" />
+    <ChallengeItem title="{{challenge.title}}" desc="{{challenge.desc}}" link="{{challenge.link}}"></ChallengeItem>
   {{/each}}
 </div>
 

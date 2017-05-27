@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^7.1.1",
+    "cssnano": "^3.10.0",
     "css-mqpacker": "^6.0.0",
     "html-webpack-plugin": "^2.28.0",
     "open-browser-webpack-plugin": "^0.0.5",
@@ -35,6 +36,12 @@
     ]
   },
   "postcss": {
-    "config": "build/config/postcss.config.js"
+    "plugins": {
+      "postcss-hexrgba": {},
+      "postcss-cssnext": {},
+      "css-mqpacker": {},
+      "autoprefixer": {},
+      "cssnano": {}
+    }
   }
 }
