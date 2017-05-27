@@ -1,6 +1,6 @@
 before_script:
   - export PATH=/opt/plesk/node/7/bin:$PATH
-  - npm install --progress false
+  - npm install --progress false --concurrency=1
 
 stages:
   - build
