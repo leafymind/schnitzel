@@ -1,15 +1,14 @@
-image: node:7.8
-
 before_script:
-  - /opt/plesk/node/7/bin/npm install
+  - export PATH=/opt/plesk/node/7/bin:$PATH
+  - npm install --progress false
 
 stages:
   - build
   - deploy
 
-job1:
+build:
   stage: build
   script:
-    - /opt/plesk/node/7/bin/npm run build
+    - npm run build
   only:
     - master

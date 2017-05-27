@@ -18,9 +18,9 @@
   "devDependencies": {
     "autoprefixer": "^7.1.1",
     "css-mqpacker": "^6.0.0",
-    "cssnext": "^1.8.4",
     "html-webpack-plugin": "^2.28.0",
     "open-browser-webpack-plugin": "^0.0.5",
+    "postcss-cssnext": "^2.11.0",
     "postcss-hexrgba": "^0.2.1",
     "postcss-html-loader": "bbuhler/postcss-html-loader",
     "svelte": "^1.20.2",
