@@ -82,7 +82,7 @@
             }
           });
           this.refs.distance.style.color = (distance < 0.05 ? 'green' : 'red');
-        });
+        }, { enableHighAccuracy: true });
       }
     }
   };
