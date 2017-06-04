@@ -1,37 +1,84 @@
-<div class="demo-card-wide mdl-card mdl-shadow--2dp">
+<div class="mdl-card mdl-shadow--2dp" on:longpress="del(challenge)">
   <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">{{title}}</h2>
+    <h2 class="mdl-card__title-text">{{challenge.title}}</h2>
   </div>
-  <div class="mdl-card__supporting-text">{{desc}}</div>
+  <!-- <div class="mdl-card__supporting-text">{{challenge.desc}}</div> -->
   <div class="mdl-card__actions mdl-card--border">
-    <a class="mdl-button mdl-button--colored" href="{{link}}">
+    <a class="mdl-button mdl-button--colored" on:tap="open(challenge)">
       Challenge starten
     </a>
   </div>
   <div class="mdl-card__menu">
-    <button class="mdl-button mdl-button--icon">
+    {{#if supportsShare}}
+    <button class="mdl-button mdl-button--icon" on:tap="share(challenge, link)">
       <i class="material-icons">share</i>
     </button>
+    {{/if}}
   </div>
 </div>
 
 <style>
-  .demo-card-wide.mdl-card
-  {
-    width: calc(100% - 2rem);
-    max-width: 512px;
-    margin: 1rem;
-  }
-
-  .demo-card-wide > .mdl-card__title
+  .mdl-card__title
   {
     color: #fff;
-    height: 176px;
+    height: 120px;
     background: url('https://getmdl.io/assets/demos/welcome_card.jpg') center / cover;
+    text-shadow: 2px 2px 3px #000;
   }
 
-  .demo-card-wide > .mdl-card__menu
+  .mdl-card__menu
   {
     color: #fff;
   }
 </style>
+
+<script>
+  import { tap, longpress } from '../../../../../shared/component-events.js';
+  import { stateRouter } from '../../../../../shared/router.js';
+  import DB from '../../../../../shared/DB.js';
+
+  export default
+  {
+    events: { tap, longpress },
+    data()
+    {
+      return { supportsShare: 'share' in navigator };
+    },
+    methods:
+    {
+      open(challenge)
+      {
+        stateRouter.go('app.play', { id: challenge._id });
+      },
+
+      del(challenge)
+      {
+        // TODO: only for testing, should be flagged as deleted later
+        DB.challenges.remove(challenge)
+          .catch(console.error.bind())
+          .then(() =>
+          {
+            console.log('Gelöscht!');
+            // TODO Reload state
+          })
+        ;
+      },
+
+      share(challenge, url)
+      {
+        const shareObj =
+        {
+          title: challenge.title,
+          text: challenge.desc,
+          url
+        };
+
+        // TODO: register for Origin Trail https://github.com/jpchase/OriginTrials/blob/gh-pages/developer-guide.md
+        navigator.share(shareObj)
+          .then(console.error.bind())
+          .catch(console.log.bind())
+        ;
+      }
+    }
+  }
+</script>

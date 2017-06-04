@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const projectRoot = path.join(__dirname, '../../');
@@ -6,7 +7,8 @@ const clientSrc = path.join(projectRoot, 'src/client');
 
 module.exports = {
   entry: {
-    'app': path.join(clientSrc, '/index.js')
+    'app': path.join(clientSrc, '/index.js'),
+    'vendor': path.join(clientSrc, '/vendor.js')
   },
 
   resolve: {
@@ -41,6 +43,10 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: ['app', 'vendor']
+    }),
+
     new HtmlWebpackPlugin({
       template: path.join(clientSrc, '/index.html'),
       minify:

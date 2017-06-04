@@ -1,4 +1,23 @@
-export function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2)
+export class Distance extends Number
+{
+  constructor(a, b)
+  {
+    super(getDistanceFromLatLonInKm(a.latitude, a.longitude, b.latitude, b.longitude));
+    this.unit = 'km';
+  }
+
+  toString()
+  {
+    return this.valueOf() + this.unit;
+  }
+
+  toFixed(digits)
+  {
+    return super.toFixed(digits) + this.unit;
+  }
+}
+
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2)
 {
   const R = 6371; // Radius of the earth in km
   const dLat = deg2rad(lat2-lat1);

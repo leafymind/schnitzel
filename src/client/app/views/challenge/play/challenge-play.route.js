@@ -1,4 +1,5 @@
 import ChallengePlay from './challenge-play.svelte';
+import DB from '../../../shared/DB.js';
 
 export default function(stateRouter)
 {
@@ -9,7 +10,9 @@ export default function(stateRouter)
     template: ChallengePlay,
     resolve(data, params)
     {
-      return Promise.resolve(params);
+      return DB.challenges.get(params.id)
+        .then(challenge => ({ challenge }))
+      ;
     }
   });
 }
