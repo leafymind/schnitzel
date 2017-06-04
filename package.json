@@ -14,7 +14,6 @@
     "svelte-state-renderer": "^1.2.0"
   },
   "devDependencies": {
-    "autoprefixer": "^7.1.1",
     "babili-webpack-plugin": "^0.1.1",
     "css-mqpacker": "^6.0.0",
     "cssnano": "^3.10.0",
@@ -36,7 +35,6 @@
       "postcss-hexrgba": {},
       "postcss-cssnext": {},
       "css-mqpacker": {},
-      "autoprefixer": {},
       "cssnano": {}
     }
   }
