@@ -21,6 +21,11 @@ module.exports = {
     chunkFilename: '[name].[id].js'
   },
 
+  devServer: {
+    historyApiFallback: true,
+    stats: 'minimal'
+  },
+
   resolveLoader: {
     alias:
     {

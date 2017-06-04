@@ -8,10 +8,6 @@ const commonConfig = require('./webpack.conf.js');
 module.exports = webpackMerge(commonConfig,
 {
   devtool: 'inline-source-map',
-  devServer: {
-    historyApiFallback: true,
-    stats: 'minimal'
-  },
 
   plugins: [
     new OpenBrowserPlugin({
