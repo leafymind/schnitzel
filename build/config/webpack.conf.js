@@ -17,7 +17,7 @@ module.exports = {
 
   output: {
     path: path.join(projectRoot, '/dist'),
-    filename: '[name].js',
+    filename: '[name].[hash].js',
     chunkFilename: '[name].[id].js'
   },
 
