@@ -5,13 +5,15 @@
   "scripts": {
     "start": "webpack-dev-server --inline --progress --config build/config/webpack.conf.dev.js --port 8080",
     "prod": "webpack-dev-server --inline --progress --config build/config/webpack.conf.prod.js --port 8080",
-    "build": "webpack --config build/config/webpack.conf.prod.js --progress --profile --bail"
+    "build": "webpack --config build/config/webpack.conf.prod.js --progress --profile --bail",
+    "db-update": "update-couch-designs --db ${DB}/challenges --docs 'src/db/challenges/*.js' && update-couch-designs --db ${DB}/quests --docs 'src/db/quests/*.js'"
   },
   "dependencies": {
     "abstract-state-router": "^5.16.2",
     "pouchdb-authentication": "^0.5.5",
     "pouchdb-browser": "^6.2.0",
     "pouchdb-find": "^6.2.0",
+    "pouchdb-validation": "^1.2.1",
     "sausage-router": "^1.1.0",
     "svelte-state-renderer": "^1.2.0"
   },
@@ -29,6 +31,7 @@
     "postcss-html-loader": "bbuhler/postcss-html-loader#8adbbb0",
     "svelte": "^1.20.2",
     "svelte-loader": "^2.0.1",
+    "update-couch-designs": "bbuhler/update-couch-designs",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5",
     "webpack-merge": "^4.1.0"
