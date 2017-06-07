@@ -63,7 +63,7 @@
     {
       console.log(this.get('challenge')._id);
 
-      DB.quests.find({ selector: { challenge: this.get('challenge')._id } })
+      DB.local.quests.find({ selector: { challenge: this.get('challenge')._id } })
         .then(result =>
         {
           this.set({ quests: result.docs });

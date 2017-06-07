@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "abstract-state-router": "^5.16.2",
+    "pouchdb-authentication": "^0.5.5",
     "pouchdb-browser": "^6.2.0",
     "pouchdb-find": "^6.2.0",
     "sausage-router": "^1.1.0",

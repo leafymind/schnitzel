@@ -1,17 +1,20 @@
 import PouchDB from 'pouchdb-browser';
-import PouchDBFind from 'pouchdb-find';
+import Find from 'pouchdb-find';
+import Authentication from 'pouchdb-authentication';
 
-PouchDB.plugin(PouchDBFind);
+PouchDB.plugin(Find);
+PouchDB.plugin(Authentication);
 
-const exportedDbs = {};
+const remote = {};
+const local = {};
 const dbs = ['challenges', 'quests'];
 
 dbs.forEach(db =>
 {
-  const remoteDB = new PouchDB('https://schnitzel.freiken-douhl.de/db/' + db);
-  const localDB = exportedDbs[db] = new PouchDB(db);
+  remote[db] = new PouchDB('https://schnitzel.freiken-douhl.de/db/' + db);
+  local[db] = new PouchDB(db);
 
-  localDB.sync(remoteDB)
+  local[db].sync(remote[db]) // TODO sync only when logged-in otherwise only download
     .on('complete', () =>
     {
       console.log('Synced [' + db + '] database.');
@@ -24,8 +27,6 @@ dbs.forEach(db =>
   ;
 });
 
-exportedDbs.quests.createIndex({ index: { fields: ['challenge'] } });
+local.quests.createIndex({ index: { fields: ['challenge'] } });
 
-export default exportedDbs;
-
-// window.PouchDB = PouchDB;
+export default { remote, local };

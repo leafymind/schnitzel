@@ -10,7 +10,7 @@ export default function(stateRouter)
     template: ChallengePlay,
     resolve(data, params)
     {
-      return DB.challenges.get(params.id)
+      return DB.local.challenges.get(params.id)
         .then(challenge => ({ challenge }))
       ;
     }

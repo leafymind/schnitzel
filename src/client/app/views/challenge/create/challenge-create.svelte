@@ -30,7 +30,7 @@
       {
         console.log(challenge);
 
-        DB.challenges.post(challenge)
+        DB.local.challenges.post(challenge)
           .then(doc =>
           {
             if (!doc.ok || !doc.id)
@@ -39,7 +39,7 @@
               throw 'Failed to create challenge';
             }
 
-            return DB.quests.bulkDocs
+            return DB.local.quests.bulkDocs
             ([
               {
                 challenge: doc.id,

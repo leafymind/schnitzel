@@ -54,7 +54,7 @@
       del(challenge)
       {
         // TODO: only for testing, should be flagged as deleted later
-        DB.challenges.remove(challenge)
+        DB.local.challenges.remove(challenge)
           .catch(console.error.bind())
           .then(() =>
           {

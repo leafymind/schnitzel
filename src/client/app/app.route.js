@@ -1,5 +1,6 @@
 import App from './app.svelte';
 
+import LoginRoute from './views/login/login.route';
 import ChallengeOverviewRoute from './views/challenge/overview/challenge-overview.route';
 import ChallengeCreateRoute from './views/challenge/create/challenge-create.route';
 import ChallengePlayRoute from './views/challenge/play/challenge-play.route';
@@ -30,6 +31,7 @@ export default function(stateRouter)
     // }
   });
 
+  LoginRoute(stateRouter);
   ChallengeOverviewRoute(stateRouter);
   ChallengeCreateRoute(stateRouter);
   ChallengePlayRoute(stateRouter);
