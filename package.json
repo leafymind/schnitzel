@@ -5,7 +5,7 @@
   "scripts": {
     "start": "webpack-dev-server --inline --progress --config build/config/webpack.conf.dev.js --port 8080",
     "prod": "webpack-dev-server --inline --progress --config build/config/webpack.conf.prod.js --port 8080",
-    "build": "webpack --config build/config/webpack.conf.prod.js --progress --profile --bail",
+    "build": "rimraf dist && webpack --config build/config/webpack.conf.prod.js --progress --profile --bail",
     "db-update": "update-couch-designs --db ${DB}/challenges --docs 'src/db/challenges/*.js' && update-couch-designs --db ${DB}/quests --docs 'src/db/quests/*.js'"
   },
   "dependencies": {
@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "babili-webpack-plugin": "^0.1.1",
+    "compression-webpack-plugin": "^0.4.0",
     "css-mqpacker": "^6.0.0",
     "cssnano": "^3.10.0",
     "favicons-webpack-plugin": "bbuhler/favicons-webpack-plugin",
@@ -28,10 +29,12 @@
     "postcss-cssnext": "^2.11.0",
     "postcss-hexrgba": "^0.2.1",
     "postcss-html-loader": "bbuhler/postcss-html-loader#8adbbb0",
+    "rimraf": "^2.6.1",
     "svelte": "^1.20.2",
     "svelte-loader": "^2.0.1",
     "update-couch-designs": "bbuhler/update-couch-designs",
     "webpack": "^2.6.1",
+    "webpack-bundle-analyzer": "^2.8.2",
     "webpack-dev-server": "^2.4.5",
     "webpack-merge": "^4.1.0"
   },

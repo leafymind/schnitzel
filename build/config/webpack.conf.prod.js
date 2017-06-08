@@ -5,6 +5,8 @@ const webpackMerge = require('webpack-merge');
 const BabiliPlugin = require("babili-webpack-plugin");
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const commonConfig = require('./webpack.conf.js');
 
@@ -12,6 +14,11 @@ const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 
 module.exports = webpackMerge(commonConfig,
 {
+  output: {
+    filename: '[name].[chunkhash:8].js',
+    chunkFilename: '[name].[chunkhash:8].[id].js'
+  },
+
   plugins:
   [
     new webpack.NoEmitOnErrorsPlugin(),
@@ -88,6 +95,21 @@ module.exports = webpackMerge(commonConfig,
           '/': '/offline-page.html'
         }
       }
+    }),
+
+		new CompressionPlugin
+    ({
+			asset: "[path].gz[query]",
+			algorithm: "zopfli",
+			test: /\.(js|html)$/,
+			minRatio: 0.8
+		}),
+
+    new BundleAnalyzerPlugin
+    ({
+      analyzerMode: 'static',
+      reportFilename: '../.tmp/report.html',
+      openAnalyzer: false
     })
   ]
 });

@@ -1,5 +1,6 @@
 const path = require('path');
 
+const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
@@ -10,8 +11,8 @@ module.exports = webpackMerge(commonConfig,
   devtool: 'inline-source-map',
 
   plugins: [
-    new OpenBrowserPlugin({
-      url: 'http://localhost:8080'
-    })
+    new webpack.ProvidePlugin({ PouchDB: 'pouchdb-browser' }),
+    new webpack.HotModuleReplacementPlugin(),
+    new OpenBrowserPlugin({ url: 'http://localhost:8080' })
   ]
 });
