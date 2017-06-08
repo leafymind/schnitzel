@@ -1,6 +1,6 @@
 before_script:
   - export PATH=/opt/plesk/node/7/bin:$PATH
-  - /opt/npm-f3-install.sh all
+  - /opt/npm-f3-install.sh all --silent
 
 stages:
   - build
