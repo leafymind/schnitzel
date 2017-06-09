@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const projectRoot = path.join(__dirname, '../../');
 const clientSrc = path.join(projectRoot, 'src/client');
@@ -43,6 +44,34 @@ module.exports = {
           'fix-ref-attr-loader',
           'postcss-html-loader'
         ]
+      },
+      {
+        test: /material-design-lite\/.+\.css$/,
+        use: ExtractTextPlugin.extract
+        ({
+          use:
+          [
+            {
+              loader: 'css-loader',
+              options:
+              {
+                camelCase: 'only',
+                modules: true,
+                importLoaders: true,
+                localIdentName: 'mdl-[local]___[hash:base64:5]'
+              }
+            },
+            {
+              loader: 'replace-loader',
+              options:
+              {
+                flags: 'g',
+                regex: '\\.mdl-',
+                sub: '.'
+              }
+            }
+          ]
+        })
       }
     ]
   },
@@ -51,6 +80,8 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: ['app', 'vendor']
     }),
+
+    new ExtractTextPlugin("styles.css"),
 
     new HtmlWebpackPlugin({
       template: path.join(clientSrc, '/index.html'),

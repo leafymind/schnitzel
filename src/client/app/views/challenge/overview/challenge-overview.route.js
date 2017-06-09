@@ -18,6 +18,10 @@ export default function(stateRouter)
             .map(row => row.doc)
         }))
       ;
+    },
+    activate()
+    {
+      componentHandler.upgradeAllRegistered();
     }
   });
 }

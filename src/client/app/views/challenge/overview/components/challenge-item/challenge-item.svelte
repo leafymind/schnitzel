@@ -1,16 +1,15 @@
-<div class="mdl-card mdl-shadow--2dp" on:longpress="del(challenge)">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">{{challenge.title}}</h2>
+<div class="{{css(mdl.card, mdl.shadow2dp)}}" on:longpress="del(challenge)">
+  <div class="{{mdl.cardTitle}} challenge-card-bg">
+    <h2 class="{{mdl.cardTitleText}}">{{challenge.title}}</h2>
   </div>
-  <!-- <div class="mdl-card__supporting-text">{{challenge.desc}}</div> -->
-  <div class="mdl-card__actions mdl-card--border">
-    <a class="mdl-button mdl-button--colored" on:tap="open(challenge)">
+  <div class="{{css(mdl.cardActions, mdl.cardBorder)}}">
+    <a class="mdl-js-button {{css(mdl.button, mdl.buttonColored)}}" on:tap="open(challenge)">
       Challenge starten
     </a>
   </div>
-  <div class="mdl-card__menu">
+  <div class="{{mdl.cardMenu}} challenge-card-menu">
     {{#if supportsShare}}
-    <button class="mdl-button mdl-button--icon" on:tap="share(challenge, link)">
+    <button class="{{css(mdl.button, mdl.buttonIcon)}}" on:tap="share(challenge, link)">
       <i class="material-icons">share</i>
     </button>
     {{/if}}
@@ -18,7 +17,7 @@
 </div>
 
 <style>
-  .mdl-card__title
+  .challenge-card-bg
   {
     color: #fff;
     height: 120px;
@@ -26,24 +25,32 @@
     text-shadow: 2px 2px 3px #000;
   }
 
-  .mdl-card__menu
+  .challenge-card-menu
   {
     color: #fff;
   }
 </style>
 
 <script>
-  import { tap, longpress } from '../../../../../shared/component-events.js';
-  import { stateRouter } from '../../../../../shared/router.js';
-  import DB from '../../../../../shared/DB.js';
+  import mdl from 'material-design-lite/dist/material.deep_purple-purple.min.css';
+  import DB from '../../../../../shared/DB';
+  import { tap, longpress } from '../../../../../shared/component-events';
+  import { stateRouter } from '../../../../../shared/router';
 
   export default
   {
     events: { tap, longpress },
+
     data()
     {
-      return { supportsShare: 'share' in navigator };
+      return { mdl, supportsShare: 'share' in navigator };
     },
+
+    helpers:
+    {
+      css: (...classes) => classes.join(' ')
+    },
+
     methods:
     {
       open(challenge)
