@@ -4,7 +4,6 @@ const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const BabiliPlugin = require("babili-webpack-plugin");
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-const MergeJsonsWebpackPlugin = require('merge-jsons-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
 
 const commonConfig = require('./webpack.conf.js');
@@ -31,36 +30,32 @@ module.exports = webpackMerge(commonConfig,
     ({
       logo: path.join(__dirname, '../../src/client/assets/img/logo.png'),
       prefix: 'assets/meta/',
-      title: 'Schnitzel',
-      start_url: '/#/overview?homescreen=true',
-      manifest: true,
-      icons:
+      inject: true,
+      config:
       {
-        android: true,
-        appleIcon: true,
-        appleStartup: true,
-        coast: false,
-        favicons: true,
-        firefox: false,
-        opengraph: true,
-        twitter: true,
-        yandex: false,
-        windows: true
-      }
-    }),
-
-    new MergeJsonsWebpackPlugin
-    ({
-      "files":
-      [
-        // FIXME dist/++/manifest.json is missing on clean build
-        path.join(__dirname, '../../dist/assets/meta/manifest.json'),
-        path.join(__dirname, '../../src/client/assets/meta/manifest.json')
-      ],
-      "output":
-      {
-        "fileName": path.join(__dirname, '../../dist/assets/meta/manifest.json')
-      }
+        appName: 'Schnitzel',
+        appDescription: 'Schnitzeljagt',
+        appleStatusBarStyle: 'black-translucent',
+        background: "#673AB7",
+        theme_color: "#673AB7",
+        lang: 'de-DE',
+        display: "standalone",
+        orientation: "portrait",
+        start_url: '/#/overview?homescreen=true',
+        icons:
+        {
+          android: true,
+          appleIcon: true,
+          appleStartup: true,
+          coast: false,
+          favicons: true,
+          firefox: false,
+          opengraph: true,
+          twitter: true,
+          yandex: false,
+          windows: true
+        }
+      },
     }),
 
     new OfflinePlugin
