@@ -1,4 +1,5 @@
-import DB from '../../shared/DB.js';
+import DB from '../../shared/DB';
+import Header from '../../shared/Header.service';
 import Login from './login.svelte';
 
 export default function(stateRouter)
@@ -22,6 +23,10 @@ export default function(stateRouter)
           return params;
         })
       ;
+    },
+    activate()
+    {
+      Header.emit('viewTitle', 'Anmelden');
     }
   });
 }

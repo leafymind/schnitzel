@@ -40,7 +40,7 @@
   .mdl-card__title.cover
   {
     color: #fff;
-    height: 120px;
+    height: 180px;
     background: url('https://getmdl.io/assets/demos/welcome_card.jpg') center / cover;
     text-shadow: 2px 2px 3px #000;
   }

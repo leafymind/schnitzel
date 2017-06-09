@@ -1,5 +1,6 @@
 import ChallengeOverview from './challenge-overview.svelte';
-import DB from '../../../shared/DB.js'
+import DB from '../../../shared/DB';
+import Header from '../../../shared/Header.service';
 
 export default function(stateRouter)
 {
@@ -18,6 +19,10 @@ export default function(stateRouter)
             .map(row => row.doc)
         }))
       ;
+    },
+    activate()
+    {
+      Header.emit('viewTitle', 'Übersicht');
     }
   });
 }

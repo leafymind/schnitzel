@@ -23,7 +23,7 @@
 
 <script>
   import DB from '../../../shared/DB';
-  import Session from '../../../shared/Session'
+  import Session from '../../../shared/Session.service';
   import { tap } from '../../../shared/component-events';
 
   export default

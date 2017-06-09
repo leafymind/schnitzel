@@ -1,4 +1,5 @@
 import DB from '../../../shared/DB';
+import Header from '../../../shared/Header.service';
 import ChallengeCreate from './challenge-create.svelte';
 
 export default function(stateRouter)
@@ -37,6 +38,10 @@ export default function(stateRouter)
           }
         })
       ;
+    },
+    activate()
+    {
+      Header.emit('viewTitle', 'Neue Challenge');
     }
   });
 }

@@ -33,9 +33,9 @@
 </style>
 
 <script>
-  import { tap, longpress } from '../../../../../shared/component-events.js';
-  import { stateRouter } from '../../../../../shared/router.js';
-  import DB from '../../../../../shared/DB.js';
+  import { tap, longpress } from '../../../../../shared/component-events';
+  import { stateRouter } from '../../../../../shared/Router';
+  import DB from '../../../../../shared/DB';
 
   export default
   {

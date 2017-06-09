@@ -5,34 +5,33 @@ import ChallengeOverviewRoute from './views/challenge/overview/challenge-overvie
 import ChallengeCreateRoute from './views/challenge/create/challenge-create.route';
 import ChallengePlayRoute from './views/challenge/play/challenge-play.route';
 
+import Header from './shared/Header.service';
+
 export default function(stateRouter)
 {
+  stateRouter.on('afterCreateState', () =>
+  {
+    componentHandler.upgradeAllRegistered();
+  });
+
   stateRouter.addState
   ({
     name: 'app',
     template: App,
     defaultChild: 'overview',
-    // resolve: function resolve(data, parameters, cb) {
-    // 	const currentUser = model.getCurrentUser()
-    //
-    // 	if (currentUser.name) {
-    // 		cb(null, {
-    // 			currentUser
-    // 		})
-    // 	} else {
-    // 		cb.redirect('login')
-    // 	}
-    // },
-    // activate: function({ domApi: svelte }) {
-    // 	svelte.on('logout', function() {
-    // 		model.saveCurrentUser(null)
-    // 		stateRouter.go('login')
-    // 	})
-    // }
+    activate(e)
+    {
+      Header.on('viewTitle', viewTitle =>
+      {
+        e.domApi.set({ viewTitle });
+      });
+    }
   });
 
   LoginRoute(stateRouter);
   ChallengeOverviewRoute(stateRouter);
   ChallengeCreateRoute(stateRouter);
   ChallengePlayRoute(stateRouter);
+
+  stateRouter.evaluateCurrentRoute('app.overview');
 }

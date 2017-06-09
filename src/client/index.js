@@ -1,4 +1,4 @@
-import { stateRouter } from './app/shared/router.js';
+import { stateRouter } from './app/shared/Router';
 import AppRoute from './app/app.route';
 
 AppRoute(stateRouter);
