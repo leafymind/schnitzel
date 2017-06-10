@@ -1,63 +1,18 @@
-export function tap(element, callback)
+import { Manager, Tap, Press, Swipe, DIRECTION_HORIZONTAL } from 'hammerjs';
+
+const SwipeHorizontal = [Swipe, { direction: DIRECTION_HORIZONTAL }];
+
+function createSvelteEvent(eventName, recognizers)
 {
-  let startTime;
-
-  function touchstart()
+  return function(element, callback)
   {
-    startTime = Date.now();
+    const mc = new Manager(element, { recognizers });
+    mc.on(eventName, callback);
+    return { teardown: () => mc.destroy() };
   }
-
-  function touchend(e)
-  {
-    if (startTime)
-    {
-      if (Date.now() - startTime < 500)
-      {
-        callback(e);
-      }
-
-      startTime = null;
-    }
-  }
-
-  element.addEventListener('touchstart', touchstart, { passive: true });
-  element.addEventListener('touchend', touchend);
-
-  return {
-    teardown()
-    {
-      element.removeEventListener('touchstart', touchstart);
-      element.removeEventListener('touchend', touchend);
-    }
-  };
 }
 
-export function longpress(element, callback)
-{
-  let timer;
-
-  function touchstart(e)
-  {
-    timer = setTimeout(() => callback(e), 500);
-  }
-
-  function touchend()
-  {
-    if (timer)
-    {
-      clearTimeout(timer);
-      timer = null;
-    }
-  }
-
-  element.addEventListener('touchstart', touchstart, { passive: true });
-  element.addEventListener('touchend', touchend);
-
-  return {
-    teardown()
-    {
-      element.removeEventListener('touchstart', touchstart);
-      element.removeEventListener('touchend', touchend);
-    }
-  };
-}
+export const tap = createSvelteEvent('tap', [[Tap]]);
+export const longpress = createSvelteEvent('press', [[Press]]);
+export const swipeLeft = createSvelteEvent('swipeleft', [SwipeHorizontal]);
+export const swipeRight = createSvelteEvent('swiperight', [SwipeHorizontal]);

@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const projectRoot = path.join(__dirname, '../../');
 const clientSrc = path.join(projectRoot, 'src/client');
@@ -51,6 +52,11 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: ['app', 'vendor']
     }),
+
+    new CopyWebpackPlugin
+    ([
+      { from: path.join(clientSrc, '/assets'), to: 'assets' },
+    ]),
 
     new HtmlWebpackPlugin({
       template: path.join(clientSrc, '/index.html'),
