@@ -3,14 +3,21 @@
     <h2 class="mdl-card__title-text">{{quest.caption}}</h2>
   </div>
 
-  <div class="mdl-card__supporting-text">{{quest.type}}</div>
+  {{#if quest.type === 'LETTERS'}}
+    <QuestLetters bind:expect="quest.expect" on:done="fire('done', { quest })" />
+  {{else}}
+    <div class="mdl-card__supporting-text">{{quest.type}}</div>
+  {{/if}}
 </div>
 
 <script>
+  import QuestLetters from './quest-letters/quest-letters.svelte';
+
   export default
   {
     components:
     {
+      QuestLetters
     }
   }
 </script>
