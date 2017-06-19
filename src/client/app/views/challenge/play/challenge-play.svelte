@@ -3,36 +3,19 @@
     <h2 class="mdl-card__title-text">{{challenge.title}}</h2>
   </div>
   <div class="mdl-card__supporting-text">
-    <pre>{{json(challenge)}}</pre>
+    {{challenge.desc}}
   </div>
+</div>
 
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text" ref:distance>
-      {{distance.toFixed(3)}}
-    </h2>
-  </div>
+<div class="content">
+  {{#each quests as quest}}
+    <QuestItem bind:quest="quest" on:done="done(event.quest)"></QuestItem>
+  {{/each}}
 
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Quests</h2>
-  </div>
-  <ul class="mdl-list">
-    {{#each quests as quest}}
-    <li class="mdl-list__item">
-      <span class="mdl-list__item-primary-content">
-        {{quest.caption}}
-      </span>
-      <span class="mdl-list__item-secondary-action">
-        <button class="mdl-button mdl-button--colored" on:tap="checkGeoLocation(quest)">Check</button>
-      </span>
-    </li>
-    {{/each}}
-  </ul>
-  <div class="mdl-card__supporting-text">
-    <pre>{{json(quests)}}</pre>
-  </div>
-
-  <div class="mdl-card__supporting-text">
-    <pre>{{json(currentCoords)}}</pre>
+  <div class="mdl-card mdl-shadow--2dp">
+    <div class="mdl-card__supporting-text">
+      <pre>{{json(quests)}}</pre>
+    </div>
   </div>
 </div>
 
@@ -45,6 +28,11 @@
     text-shadow: 2px 2px 3px #000;
   }
 
+  .quest-item
+  {
+    margin-bottom: 1rem;
+  }
+
   pre
   {
     margin: 0
@@ -53,29 +41,17 @@
 
 <script>
   import DB from '../../../shared/DB.js';
-  import { tap } from '../../../shared/component-events.js';
-  import { Distance } from '../../../shared/Distance.class.js';
+  import quests from '../../../shared/test-quests';
+  import QuestItem from './components/quest-item.svelte';
 
-  export default {
-    events: { tap },
-
-    oncreate()
+  export default
+  {
+    components:
     {
-      console.log(this.get('challenge')._id);
-
-      DB.local.quests.find({ selector: { challenge: this.get('challenge')._id } })
-        .then(result =>
-        {
-          this.set({ quests: result.docs });
-        })
-      ;
+      QuestItem
     },
 
-    data: () =>
-    ({
-      distance: 0,
-      quests: []
-    }),
+    data: () => ({ quests }),
 
     helpers:
     {
@@ -87,28 +63,9 @@
 
     methods:
     {
-      checkGeoLocation(quest)
+      done(quest)
       {
-        navigator.geolocation.getCurrentPosition(position =>
-        {
-          console.log(position.coords);
-
-          let distance = new Distance(quest.coords, position.coords);
-
-          this.set
-          ({
-            distance,
-            currentCoords:
-            {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-              accuracy: position.coords.accuracy
-            }
-          });
-
-          this.refs.distance.style.color = (distance < 0.05 ? 'green' : 'red');
-
-        }, console.error.bind(console), { enableHighAccuracy: true });
+        console.log('Quest accomplished!', quest);
       }
     }
   };

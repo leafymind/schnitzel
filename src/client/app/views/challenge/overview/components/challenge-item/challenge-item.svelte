@@ -1,16 +1,16 @@
-<div class="mdl-card mdl-shadow--2dp" on:longpress="del(challenge)">
+<div class="mdl-card mdl-shadow--2dp challenge-item" on:longpress="del(challenge)">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">{{challenge.title}}</h2>
   </div>
   <!-- <div class="mdl-card__supporting-text">{{challenge.desc}}</div> -->
   <div class="mdl-card__actions mdl-card--border">
-    <a class="mdl-button mdl-button--colored" on:tap="open(challenge)">
+    <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" on:tap="open(challenge)">
       Challenge starten
     </a>
   </div>
   <div class="mdl-card__menu">
     {{#if supportsShare}}
-    <button class="mdl-button mdl-button--icon" on:tap="share(challenge, link)">
+    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" on:tap="share(challenge, link)">
       <i class="material-icons">share</i>
     </button>
     {{/if}}
@@ -18,6 +18,11 @@
 </div>
 
 <style>
+  .mdl-card.challenge-item
+  {
+    margin-bottom: 1rem;
+  }
+
   .mdl-card__title
   {
     color: #fff;

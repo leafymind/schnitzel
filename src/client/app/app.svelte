@@ -33,6 +33,11 @@
 </div>
 
 <style>
+  .mdl-layout
+  {
+    background-color: #e5e5e5;
+  }
+
   .mdl-layout__header--absolute
   {
     position: absolute;
