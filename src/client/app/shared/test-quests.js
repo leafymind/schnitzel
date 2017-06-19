@@ -41,9 +41,9 @@ export default
     }
   },
   {
-    type: 'CHOISE',
+    type: 'CHOICE',
     caption: 'Na wer ist das?',
-    choises: ['Robin Hood', 'Amor', 'Herkules', 'König Friedrich Wilhelms III. von Preußen'],
+    choises: ['Robin Hood', 'Amor', 'Herkules', 'König Friedrich Wilhelm III. von Preußen'],
     expect: 'Amor'
   },
   {
@@ -112,7 +112,7 @@ export default
     }
   },
   {
-    type: 'CHOISE',
+    type: 'CHOICE',
     caption: 'Was war das Belvedere Ursprünglich mal?',
     choises: ['Jagdhaus und Aussichtsturm', 'Teehaus und Aussichtsturm', 'Porzellanmanufaktur', 'Café und Restaurant'],
     expect: 'Teehaus und Aussichtsturm'

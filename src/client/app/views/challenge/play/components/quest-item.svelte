@@ -3,14 +3,21 @@
     <h2 class="mdl-card__title-text">{{quest.caption}}</h2>
   </div>
 
-  <div class="mdl-card__supporting-text">{{quest.type}}</div>
+  {{#if quest.type === 'CHOICE'}}
+    <QuestChoice bind:quest="quest" on:done="fire('done', { quest })" />
+  {{else}}
+    <div class="mdl-card__supporting-text">{{quest.type}}</div>
+  {{/if}}
 </div>
 
 <script>
+  import QuestChoice from './quest-choice/quest-choice.svelte';
+
   export default
   {
     components:
     {
+      QuestChoice
     }
   }
 </script>
