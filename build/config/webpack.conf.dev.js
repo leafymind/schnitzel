@@ -11,7 +11,6 @@ module.exports = webpackMerge(commonConfig,
   devtool: 'inline-source-map',
 
   plugins: [
-    new webpack.ProvidePlugin({ PouchDB: 'pouchdb-browser' }),
     new webpack.HotModuleReplacementPlugin(),
     new OpenBrowserPlugin({ url: 'http://localhost:8080' })
   ]

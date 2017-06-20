@@ -1,11 +1,17 @@
-import PouchDB from 'pouchdb-browser';
-import Find from 'pouchdb-find';
+import PouchDB from 'pouchdb-core';
+import AdapterIdb from 'pouchdb-adapter-idb';
+import AdapterHttp from 'pouchdb-adapter-http';
+import Replication from 'pouchdb-replication';
 import Validation from 'pouchdb-validation';
 import Authentication from 'pouchdb-authentication';
 
-PouchDB.plugin(Find);
-PouchDB.plugin(Validation);
-PouchDB.plugin(Authentication);
+PouchDB
+  .plugin(AdapterIdb)
+  .plugin(AdapterHttp)
+  .plugin(Replication)
+  .plugin(Validation)
+  .plugin(Authentication)
+;
 
 const remote = {};
 const local = {};
@@ -14,7 +20,7 @@ const dbs = ['challenges', 'quests'];
 dbs.forEach(db =>
 {
   remote[db] = new PouchDB('https://schnitzel.freiken-douhl.de/db/' + db, { skip_setup: true });
-  local[db] = new PouchDB(db);
+  local[db]  = new PouchDB(db);
 
   function log(msg, ...rest)
   {
@@ -29,8 +35,4 @@ dbs.forEach(db =>
   ;
 });
 
-local.quests.createIndex({ index: { fields: ['challenge'] } });
-
 export default { remote, local };
-
-window.PouchDB = PouchDB;

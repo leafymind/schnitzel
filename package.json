@@ -12,9 +12,11 @@
     "abstract-state-router": "^5.16.2",
     "hammerjs": "^2.0.8",
     "material-design-lite": "^1.3.0",
+    "pouchdb-adapter-http": "^6.2.0",
+    "pouchdb-adapter-idb": "^6.2.0",
     "pouchdb-authentication": "^0.5.5",
-    "pouchdb-browser": "^6.2.0",
-    "pouchdb-find": "^6.2.0",
+    "pouchdb-core": "^6.2.0",
+    "pouchdb-replication": "^6.2.0",
     "pouchdb-validation": "^1.2.1",
     "sausage-router": "^1.1.0",
     "svelte-state-renderer": "^1.2.0"
