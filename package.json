@@ -36,9 +36,9 @@
     "svelte": "^1.20.2",
     "svelte-loader": "^2.0.1",
     "update-couch-designs": "bbuhler/update-couch-designs",
-    "webpack": "^2.6.1",
+    "webpack": "^3.0.0",
     "webpack-bundle-analyzer": "^2.8.2",
-    "webpack-dev-server": "^2.4.5",
+    "webpack-dev-server": "^2.5.0",
     "webpack-merge": "^4.1.0"
   },
   "postcss": {
