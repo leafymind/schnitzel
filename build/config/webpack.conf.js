@@ -30,7 +30,7 @@ module.exports = {
   resolveLoader: {
     alias:
     {
-      'fix-ref-attr-loader': path.join(__dirname, '../loader/fix-ref-attrs')
+      'fix-standalone-svelte-directives-loader': path.join(__dirname, '../loader/fix-standalone-svelte-directives')
     }
   },
 
@@ -41,7 +41,7 @@ module.exports = {
         use:
         [
           'svelte-loader',
-          'fix-ref-attr-loader',
+          'fix-standalone-svelte-directives-loader',
           'postcss-html-loader'
         ]
       }

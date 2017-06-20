@@ -9,7 +9,7 @@
 
 <div class="content">
   {{#each quests as quest}}
-    <QuestItem bind:quest="quest" on:done="done(event.quest)"></QuestItem>
+    <QuestItem bind:quest on:done="done(event.quest)"></QuestItem>
   {{/each}}
 
   <div class="mdl-card mdl-shadow--2dp">

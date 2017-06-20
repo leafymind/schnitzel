@@ -1,6 +1,6 @@
 <div class="content">
   {{#each challenges as challenge}}
-    <ChallengeItem bind:challenge="challenge" link="{{asr.makePath('app.play', { id: challenge._id })}}"></ChallengeItem>
+    <ChallengeItem bind:challenge link="{{asr.makePath('app.play', { id: challenge._id })}}"></ChallengeItem>
   {{/each}}
 </div>
 
