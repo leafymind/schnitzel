@@ -5,9 +5,9 @@
     {{/each}}
   </h2>
 </div>
-<div class="mdl-card__actions mdl-card--border">
+<div class="mdl-card__actions mdl-card--border input-letters">
   {{#each inputLetters as letter}}
-    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" on:tap="input(expect, answer, letter)">{{letter}}</button>
+    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" on:tap="input(quest, answer, letter)">{{letter}}</button>
   {{/each}}
 </div>
 
@@ -63,9 +63,9 @@
 
     computed:
     {
-      outputLetters(expect, answer)
+      outputLetters(quest, answer)
       {
-        const underscores = expect.replace(/[a-z]/gi, '_');
+        const underscores = quest.expect.replace(/[a-z]/gi, '_');
 
         return underscores.split('')
           .map((item, i) =>
@@ -76,15 +76,15 @@
             }
             else
             {
-              return { char: answer.charAt(i), isCorrect: answer.charAt(i) === expect.charAt(i) }
+              return { char: answer.charAt(i), isCorrect: answer.charAt(i) === quest.expect.charAt(i) }
             }
           })
         ;
       },
 
-      inputLetters(expect)
+      inputLetters(quest)
       {
-        let expectLetters = shuffle(expect.split(''));
+        let expectLetters = shuffle(quest.expect.split(''));
         let randomLetters = shuffle(alpha);
 
         return shuffle(expectLetters.concat(randomLetters.slice(0, 5))).reverse();
@@ -93,13 +93,13 @@
 
     methods:
     {
-      input(expect, answer, letter)
+      input(quest, answer, letter)
       {
         answer += letter;
 
         this.set({ answer });
 
-        if (expect === answer)
+        if (quest.expect === answer)
         {
           this.fire('done');
         }
