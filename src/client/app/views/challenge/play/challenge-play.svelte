@@ -28,7 +28,7 @@
     text-shadow: 2px 2px 3px #000;
   }
 
-  .quest-item
+  :global(.quest-item)
   {
     margin-bottom: 1rem;
   }

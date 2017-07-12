@@ -76,18 +76,18 @@
     padding: 1rem;
   }
 
-  .mdl-card
+  :global(.mdl-card)
   {
     width: auto;
     min-height: 100px;
   }
 
-  .mdl-list
+  :global(.mdl-list)
   {
     margin: 0;
   }
 
-  .content
+  :global(.content)
   {
     padding: 1rem;
   }

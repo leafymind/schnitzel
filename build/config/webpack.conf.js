@@ -40,7 +40,13 @@ module.exports = {
         test: /\.svelte$/,
         use:
         [
-          'svelte-loader',
+          {
+            loader: 'svelte-loader',
+            options:
+            {
+              cascade: false
+            }
+          },
           'fix-standalone-svelte-directives-loader',
           'postcss-html-loader'
         ]
