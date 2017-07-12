@@ -1,6 +1,6 @@
 {{#if quest.coords}}
   <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text" ref:distance>
+    <h2 class="mdl-card__title-text" style="display:none" ref:distance>
       {{distance.toFixed(3)}}
     </h2>
   </div>
@@ -30,35 +30,42 @@
       }
     },
 
+    oncreate()
+    {
+      navigator.geolocation.watchPosition(this.checkDistance.bind(this), console.error.bind(console));
+    },
+
     methods:
     {
+      checkDistance(position)
+      {
+        const quest = this.get('quest');
+        const distance = new Distance(quest.coords, position.coords);
+        const reached = distance < quest.coords.tolerance / 1000;
+
+        this.set
+        ({
+          distance,
+          currentCoords:
+          {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            accuracy: position.coords.accuracy
+          }
+        });
+
+        this.refs.distance.style.color = (reached ? 'green' : 'red');
+
+        if (reached)
+        {
+          this.fire('done');
+        }
+      },
+
       checkGeoLocation(quest)
       {
-        navigator.geolocation.getCurrentPosition(position =>
-        {
-          console.log(position.coords);
-
-          const distance = new Distance(quest.coords, position.coords);
-          const reached = distance < quest.coords.tolerance / 1000;
-
-          this.set
-          ({
-            distance,
-            currentCoords:
-            {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-              accuracy: position.coords.accuracy
-            }
-          });
-
-          this.refs.distance.style.color = (reached ? 'green' : 'red');
-
-          if (reached)
-          {
-            this.fire('done');
-          }
-        }, console.error.bind(console), { enableHighAccuracy: true });
+        navigator.geolocation.getCurrentPosition(this.checkDistance.bind(this), console.error.bind(console), { enableHighAccuracy: true });
+        this.refs.distance.style.display = '';
       }
     }
   };

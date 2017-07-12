@@ -4,7 +4,7 @@
   </div>
 
   {{#if quest.type === 'GPS'}}
-    <QuestGps bind:quest="quest" on:done="fire('done', { quest })" />
+    <QuestGps bind:quest on:done="fire('done', { quest })" />
   {{else}}
     <div class="mdl-card__supporting-text">{{quest.type}}</div>
   {{/if}}
