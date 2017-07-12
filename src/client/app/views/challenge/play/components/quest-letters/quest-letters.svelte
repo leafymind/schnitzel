@@ -1,20 +1,21 @@
 <div class="mdl-card__title">
   <h2 class="mdl-card__title-text letters">
     {{#each outputLetters as letter}}
-      <span class="letter {{getLetterClass(letter)}}">{{letter.char}}</span>
+      <span class="letter {{getLetterClass(letter)}}">{{letter.display}}</span>
     {{/each}}
   </h2>
 </div>
 <div class="mdl-card__actions mdl-card--border input-letters">
   {{#each inputLetters as letter}}
-    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" on:tap="input(quest, answer, letter)">{{letter}}</button>
+    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" on:tap="input(inputIndex, outputLetters, letter)">{{letter}}</button>
   {{/each}}
 </div>
 
 <style>
   .letter
   {
-    margin: 4px;
+    width: 25px;
+    text-align: center;
 
     &.correct
     {
@@ -51,7 +52,7 @@
   {
     events: { tap },
 
-    data: () => ({ answer: '' }),
+    data: () => ({ inputIndex: 0 }),
 
     helpers:
     {
@@ -63,21 +64,19 @@
 
     computed:
     {
-      outputLetters(quest, answer)
+      outputLetters(quest)
       {
-        const underscores = quest.expect.replace(/[a-z]/gi, '_');
-
-        return underscores.split('')
-          .map((item, i) =>
+        return quest.expect.split('')
+          .map((char, i) =>
           {
-            if (answer.charAt(i) === '')
-            {
-              return { char: underscores.charAt(i), isEmpty: true };
-            }
-            else
-            {
-              return { char: answer.charAt(i), isCorrect: answer.charAt(i) === quest.expect.charAt(i) }
-            }
+            const isLetter = /[a-zäüöß]/i.test(char);
+
+            return {
+              char,
+              display: isLetter? '_' : char,
+              isEmpty: isLetter,
+              isCorrect: !isLetter
+            };
           })
         ;
       },
@@ -93,16 +92,29 @@
 
     methods:
     {
-      input(quest, answer, letter)
+      input(inputIndex, outputLetters, letter)
       {
-        answer += letter;
+        const current = outputLetters[inputIndex];
 
-        this.set({ answer });
+        current.display = letter;
+        current.isEmpty = false;
+        current.isCorrect = current.char === letter;
 
-        if (quest.expect === answer)
+        if (current.isCorrect)
         {
-          this.fire('done');
+          inputIndex++;
+
+          if (outputLetters.length === inputIndex)
+          {
+            this.fire('done');
+          }
         }
+        else
+        {
+          this.fire('wrong');
+        }
+
+        this.set({ inputIndex, outputLetters });
       }
     }
   }
