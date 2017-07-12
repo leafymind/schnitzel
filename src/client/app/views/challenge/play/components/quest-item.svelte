@@ -4,7 +4,7 @@
   </div>
 
   {{#if quest.type === 'CHOICE'}}
-    <QuestChoice bind:quest="quest" on:done="fire('done', { quest })" />
+    <QuestChoice bind:quest on:done="fire('done', { quest })" on:wrong="fire('wrong', { quest })" />
   {{else}}
     <div class="mdl-card__supporting-text">{{quest.type}}</div>
   {{/if}}

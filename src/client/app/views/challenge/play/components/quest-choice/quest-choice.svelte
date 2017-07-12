@@ -19,6 +19,10 @@
         {
           this.fire('done');
         }
+        else
+        {
+          this.fire('wrong');
+        }
       }
     }
   }
