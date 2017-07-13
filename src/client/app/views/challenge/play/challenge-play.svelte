@@ -51,7 +51,10 @@
       QuestItem
     },
 
-    data: () => ({ quests }),
+    data()
+    {
+      return { quests: quests.map((item, i) => { item.id = i; return item; }) }
+    },
 
     helpers:
     {
