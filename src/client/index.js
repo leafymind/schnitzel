@@ -7,5 +7,32 @@ stateRouter.evaluateCurrentRoute('app');
 
 if (process.env.ENV === 'production')
 {
-  require('offline-plugin/runtime').install();
+  const OfflinePluginRuntime = require('offline-plugin/runtime');
+
+  const snackbarContainer = document.getElementById('snackbar');
+  const showSnackbar = snackbarContainer.MaterialSnackbar.showSnackbar;
+
+  OfflinePluginRuntime.install
+  ({
+    onInstalled()
+    {
+      showSnackbar({ message: 'App installiert.' });
+    },
+
+    onUpdateReady()
+    {
+      showSnackbar
+      ({
+        message: 'Neue Version ist bereit zur Installation.',
+        actionText: 'Aktualisieren',
+        actionHandler: () => OfflinePluginRuntime.applyUpdate(),
+        timeout: 5000
+      });
+    },
+
+    onUpdated()
+    {
+      showSnackbar({ message: 'Aktualisierung erfolgreich installiert.' });
+    }
+  });
 }
