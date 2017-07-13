@@ -9,7 +9,7 @@
 
 <div class="content">
   {{#each quests as quest}}
-    <QuestItem bind:quest on:done="done(event.quest)"></QuestItem>
+    <QuestItem bind:quest on:done="done(event.quest)" on:wrong="wrong(event.quest)"></QuestItem>
   {{/each}}
 
   <div class="mdl-card mdl-shadow--2dp">
@@ -66,6 +66,11 @@
       done(quest)
       {
         console.log('Quest accomplished!', quest);
+      },
+
+      wrong(quest)
+      {
+        console.warn('Wrong guess!', quest);
       }
     }
   };
