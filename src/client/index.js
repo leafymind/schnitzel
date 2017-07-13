@@ -33,6 +33,11 @@ if (process.env.ENV === 'production')
     onUpdated()
     {
       showSnackbar({ message: 'Aktualisierung erfolgreich installiert.' });
+    },
+
+    onUpdateFailed()
+    {
+      showSnackbar({ message: 'Aktualisierung fehlgeschlagen.' });
     }
   });
 }
