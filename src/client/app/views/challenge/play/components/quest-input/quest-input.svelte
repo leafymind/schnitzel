@@ -29,7 +29,9 @@
       {
         e.preventDefault();
 
-        const isCorrectSingleAnswer = typeof quest.expect === 'string' && answer.toLowerCase() === quest.expect.toLowerCase();
+        answer = answer.toLowerCase().trim();
+
+        const isCorrectSingleAnswer = typeof quest.expect === 'string' && answer === quest.expect.toLowerCase();
         const isCorrectMultipleWordsAnswer = Array.isArray(quest.expect) && quest.expect.every(expectedWord => answer.includes(expectedWord));
 
         if (isCorrectSingleAnswer || isCorrectMultipleWordsAnswer)
