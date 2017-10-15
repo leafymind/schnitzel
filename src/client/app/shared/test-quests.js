@@ -7,7 +7,7 @@ export default
     {
       latitude: 52.52269,
       longitude: 13.2999,
-      tolerance: 5
+      tolerance: 6
     }
   },
   {
@@ -22,7 +22,7 @@ export default
     {
       latitude: 52.52564,
       longitude: 13.29309,
-      tolerance: 5
+      tolerance: 6
     }
   },
   {
@@ -37,7 +37,7 @@ export default
     {
       latitude: 52.52446,
       longitude: 13.29336,
-      tolerance: 5
+      tolerance: 7
     }
   },
   {
@@ -53,7 +53,7 @@ export default
     {
       latitude: 52.52527,
       longitude: 13.29306,
-      tolerance: 5
+      tolerance: 6
     }
   },
   {
@@ -73,7 +73,7 @@ export default
     {
       latitude: 52.524,
       longitude: 13.29185,
-      tolerance: 5
+      tolerance: 6
     }
   },
   {
@@ -149,7 +149,7 @@ export default
     {
       latitude: 52.52936,
       longitude: 13.29443,
-      tolerance: 3
+      tolerance: 5
     }
   },
   {
