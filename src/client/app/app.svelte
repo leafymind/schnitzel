@@ -35,7 +35,7 @@
 <style>
   .mdl-layout
   {
-    background-color: #e5e5e5;
+    background-color: #f1e7ca;
   }
 
   .mdl-layout__header--absolute
@@ -57,7 +57,7 @@
 
   .drawer-profile
   {
-    background: linear-gradient(0deg, rgba(#333, .75), rgba(#333, .75)), url(http://ecx.images-amazon.com/images/I/71bLXSC0FZL._SX355_.jpg) 50% / cover;
+    background: linear-gradient(0deg, rgba(#333, .75), rgba(#333, .75)), url(../assets/img/drawer-bg.jpg) 50% / cover;
     border-radius: 0
   }
 
