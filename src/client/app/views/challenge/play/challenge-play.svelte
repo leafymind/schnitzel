@@ -8,9 +8,7 @@
 </div>
 
 <div class="content">
-  {{#each quests as quest}}
-    <QuestItem bind:quest on:done="done(event.quest)" on:wrong="wrong(event.quest)"></QuestItem>
-  {{/each}}
+  <QuestItem bind:quest="quests[current]" on:done="done(event.quest)" on:wrong="wrong(event.quest)"></QuestItem>
 
   <div class="mdl-card mdl-shadow--2dp">
     <div class="mdl-card__supporting-text">
@@ -51,7 +49,13 @@
       QuestItem
     },
 
-    data: () => ({ quests }),
+    data()
+    {
+      return {
+        quests: quests.map((item, i) => { item.id = i; return item; }),
+        current: 0
+      }
+    },
 
     helpers:
     {
@@ -66,11 +70,19 @@
       done(quest)
       {
         console.log('Quest accomplished!', quest);
+
+        const snackbarContainer = document.getElementById('snackbar');
+        snackbarContainer.MaterialSnackbar.showSnackbar({ message: 'Richtig!' });
+
+        this.set({ current: this.get('current') + 1 });
       },
 
       wrong(quest)
       {
         console.warn('Wrong guess!', quest);
+
+        const snackbarContainer = document.getElementById('snackbar');
+        snackbarContainer.MaterialSnackbar.showSnackbar({ message: 'Falsch :(' });
       }
     }
   };

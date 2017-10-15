@@ -13,7 +13,7 @@ import 'material-design-lite/src/button/button';
 // import 'material-design-lite/src/progress/progress';
 // import 'material-design-lite/src/radio/radio';
 // import 'material-design-lite/src/slider/slider';
-// import 'material-design-lite/src/snackbar/snackbar';
+import 'material-design-lite/src/snackbar/snackbar';
 // import 'material-design-lite/src/spinner/spinner';
 // import 'material-design-lite/src/switch/switch';
 // import 'material-design-lite/src/tabs/tabs';
