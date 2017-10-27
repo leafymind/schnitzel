@@ -40,11 +40,13 @@
   {
     events: { tap },
 
-    data: () =>
-    ({
-      user: '',
-      pw: ''
-    }),
+    data()
+    {
+      return {
+        user: '',
+        pw: ''
+      };
+    },
 
     methods:
     {

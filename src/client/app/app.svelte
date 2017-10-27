@@ -102,11 +102,13 @@
   {
     events: { tap, swipeRight, swipeLeft },
 
-    data: () =>
-    ({
-      appTitle: 'Schnitzel',
-      viewTitle: 'Schnitzel'
-    }),
+    data()
+    {
+      return {
+        appTitle: 'Schnitzel',
+        viewTitle: 'Schnitzel'
+      };
+    },
 
     oncreate()
     {

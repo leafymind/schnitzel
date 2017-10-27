@@ -21,36 +21,39 @@ const info = {
   hero: 'Leon'
 };
 
-Object.defineProperties(info,
-{
-  name:
+Object.defineProperties
+(
+  info,
   {
-    enumerable: true,
-    get()
+    name:
     {
-      return localStorage.getItem('username');
+      enumerable: true,
+      get()
+      {
+        return localStorage.getItem('username');
+      },
+      set(name)
+      {
+        return localStorage.setItem('username', name);
+      }
     },
-    set(name)
+    longDate:
     {
-      return localStorage.setItem('username', name);
-    }
-  },
-  longDate:
-  {
-    enumerable: true,
-    get()
+      enumerable: true,
+      get()
+      {
+        return (new Date()).toLocaleDateString(navigator.language, { day: 'numeric', month: 'long', year: 'numeric', weekday: 'long' });
+      }
+    },
+    longTime:
     {
-      return (new Date()).toLocaleDateString(navigator.language, { day: 'numeric', month: 'long', year: 'numeric', weekday: 'long' });
-    }
-  },
-  longTime:
-  {
-    enumerable: true,
-    get()
-    {
-      return (new Date()).toLocaleTimeString(navigator.language, { hour12: true, hour: 'numeric' });
+      enumerable: true,
+      get()
+      {
+        return (new Date()).toLocaleTimeString(navigator.language, { hour12: true, hour: 'numeric' });
+      }
     }
   }
-});
+);
 
 export default info;

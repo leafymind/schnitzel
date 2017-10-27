@@ -13,11 +13,12 @@ export default function(stateRouter)
     {
       return DB.local.challenges.allDocs({ include_docs: true, descending: true })
         .then(data =>
-        ({
-          challenges: data.rows
-            .filter(row => !row.id.startsWith('_design'))
-            .map(row => row.doc)
-        }))
+          ({
+            challenges: data.rows
+              .filter(row => !row.id.startsWith('_design'))
+              .map(row => row.doc)
+          })
+        )
       ;
     },
     activate()

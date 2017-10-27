@@ -6,8 +6,8 @@ import SvelteRenderer from 'svelte-state-renderer';
 export const stateRouter = StateRouter
 (
   SvelteRenderer(),
-  document.querySelector('app'),
-  // {
+  document.querySelector('app')
+  // ,{
   //   pathPrefix: '',
   //   router: makeRouter(sausage())
   // }

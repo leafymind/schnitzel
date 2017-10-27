@@ -78,7 +78,6 @@
           url
         };
 
-        // TODO: register for Origin Trail https://github.com/jpchase/OriginTrials/blob/gh-pages/developer-guide.md
         navigator.share(shareObj)
           .then(console.error.bind())
           .catch(console.log.bind())

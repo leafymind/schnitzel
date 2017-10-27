@@ -38,7 +38,7 @@
 </style>
 
 <script>
-  import DB from '../../../shared/DB.js';
+  // import DB from '../../../shared/DB.js';
   import quests from '../../../shared/test-quests';
   import QuestItem from './components/quest-item.svelte';
 
@@ -52,7 +52,7 @@
     data()
     {
       return {
-        quests: quests.map((item, i) => { item.id = i; return item; }),
+        quests: quests.map((item, i) => { item.id = i; return item }),
         current: 0
       }
     },

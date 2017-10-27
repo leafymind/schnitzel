@@ -37,6 +37,12 @@ module.exports = {
   module: {
     rules: [
       {
+        enforce: 'pre',
+        test: /\.(js|svelte)$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader'
+      },
+      {
         test: /\.svelte$/,
         use:
         [
