@@ -211,7 +211,20 @@
 
         if (message.dir !== 'out')
         {
-          window.navigator.vibrate(200);
+          if (document.hasFocus())
+          {
+            window.navigator.vibrate(200);
+          }
+          else if (Notification.permission === 'granted')
+          {
+            window.navigator.vibrate(500);
+
+            // FIXME this doesn't work without SW.js on mobile chrome :(
+            new Notification('Schnitzel', {
+              body: message.text,
+              icon: 'assets/img/logo.png'
+            });
+          }
         }
       });
 
