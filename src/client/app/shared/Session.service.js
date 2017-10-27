@@ -6,12 +6,15 @@ class Session
 {
   constructor()
   {
-    this.getRemote();
+    if (navigator.onLine)
+    {
+      this.getRemote();
+    }
   }
 
   getRemote()
   {
-    return DB.remote.challenges.getSession().then(session => sessionCache = session);
+    return DB.remote.session.getSession().then(session => sessionCache = session);
   }
 
   getCachedUser()

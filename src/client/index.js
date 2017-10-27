@@ -1,9 +1,6 @@
+import DB from './app/shared/DB';
 import { stateRouter } from './app/shared/Router';
 import AppRoute from './app/app.route';
-
-AppRoute(stateRouter);
-
-stateRouter.evaluateCurrentRoute('app');
 
 if (process.env.ENV === 'production')
 {
@@ -45,3 +42,19 @@ if (Notification.permission !== 'denied')
 {
   Notification.requestPermission();
 }
+
+DB.isDataAvailable()
+  .then(() =>
+  {
+    return navigator.onLine || Promise.reject('update');
+  })
+  .catch(() =>
+  {
+    return DB.download();
+  })
+  .then(() =>
+  {
+    AppRoute(stateRouter);
+    stateRouter.evaluateCurrentRoute('app');
+  })
+;

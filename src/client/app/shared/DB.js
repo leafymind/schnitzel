@@ -13,26 +13,30 @@ PouchDB
   .plugin(Authentication)
 ;
 
+const API = 'https://schnitzel.freiken-douhl.de/db/';
+const dbs = ['story'];
 const remote = {};
 const local = {};
-const dbs = ['challenges', 'quests', 'story'];
 
 dbs.forEach(db =>
 {
-  remote[db] = new PouchDB('https://schnitzel.freiken-douhl.de/db/' + db, { skip_setup: true });
+  remote[db] = new PouchDB(API + db, { skip_setup: true });
   local[db]  = new PouchDB(db);
-
-  function log(msg, ...rest)
-  {
-    console.log(`[${db}] ${msg}`, rest);
-  }
-
-  local[db].sync(remote[db], { live: true, retry: true }) // TODO sync only when logged-in otherwise only download.on('change', function (info) {
-    .on('change', info => log('Change.', info))
-    .on('denied', err => log('Denied.', err))
-    .on('error', err => log('Failed to sync.', err))
-    .on('complete', () => log('Synced.'))
-  ;
 });
 
-export default { remote, local };
+remote.session = new PouchDB(API + '/', { skip_setup: true });
+
+export default {
+  remote,
+  local,
+  isDataAvailable()
+  {
+    return Promise.all(dbs.map(db => local[db].info()
+      .then(info => info.doc_count || Promise.reject() )))
+    ;
+  },
+  download()
+  {
+    return Promise.all(dbs.map(db => remote[db].replicate.to(local[db], { retry: true })));
+  }
+};
