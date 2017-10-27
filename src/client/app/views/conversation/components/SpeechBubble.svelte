@@ -16,6 +16,7 @@
     display: flex;
     align-items: flex-start;
     margin-bottom: .75rem;
+    max-width: 90%;
   }
 
   .speech-bubble .content
@@ -77,6 +78,7 @@
   .speech-bubble.right
   {
     flex-direction: row-reverse;
+    margin-left: auto;
   }
 
   .speech-bubble.right .content

@@ -31,9 +31,9 @@
 <div class="input">
   <div class="text-field">
     {{#if answer && answer.type === 'choise' && answer.options.length}}
-      <InputChoose ref:inputChoose bind:answer on:chosen="onChoise(event.answer)"></InputChoose>
+      <InputChoose ref:inputChoose bind:answer on:chosen="onChoise(event.answer)" on:enter="send(messages, answer, input)" />
     {{elseif answer && answer.type === 'text'}}
-      <InputText ref:inputText bind:answer on:input="onInput(answer, event.input)" on:enter="send(messages, answer, input)"></InputText>
+      <InputText ref:inputText bind:answer on:input="onInput(answer, event.input)" on:enter="send(messages, answer, input)" />
     {{else}}
       <div class="mdl-color-text--grey">
         Antwort auswählen
@@ -119,7 +119,7 @@
       onChoise(input)
       {
         this.set({ input });
-        this.refs.sendButton.disabled = false;
+        this.refs.sendButton.disabled = !input;
       },
 
       onInput(answer, input)

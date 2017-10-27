@@ -1,22 +1,17 @@
-<div class="container">
+<span class="container">
   {{#if answer.prefix}}
     <span class="prefix">{{answer.prefix}}</span>
   {{/if}}
-  <span ref:input class="input" contenteditable="true" placeholder="{{answer.placeholder}}" on:keydown="onKeyDown(event)" on:input="onInput(event)"></span>
+  <span ref:input class="input" contenteditable="true" placeholder="{{answer.placeholder}}" on:keydown="onKeyDown(event, answer)" on:input="onInput(event)"></span>
   {{#if answer.suffix}}
     <span class="suffix">{{answer.suffix}}</span>
   {{/if}}
-</div>
+</span>
 
 <style>
-  .container
-  {
-    display: flex;
-  }
-
   .input
   {
-    flex: 1;
+    display: inline-block;
     outline: 0;
     white-space: nowrap;
   }
@@ -24,7 +19,12 @@
   .input:empty:not([placeholder=""])::before
   {
     content: attr(placeholder);
-    position: absolute;
+    color: #999;
+  }
+
+  .input:empty[placeholder=""]::before
+  {
+    content: '...';
     color: #999;
   }
 
@@ -46,12 +46,16 @@
   {
     methods:
     {
-      onKeyDown(event)
+      onKeyDown(event, answer)
       {
         if (event.keyCode === 13)
         {
           event.preventDefault();
-          this.fire('enter');
+
+          if (!answer.expect || answer.expect.every(word => event.target.innerText.toLowerCase().includes(word)))
+          {
+            this.fire('enter');
+          }
         }
       },
 

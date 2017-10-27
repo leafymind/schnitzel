@@ -1,34 +1,27 @@
 <div>
-  <button ref:btn id="choose-answer" class="mdl-color-text--primary">
+  <span ref:btn id="choose-answer" class="mdl-color-text--primary">
     {{#if chosenAnswer}}
       {{chosenAnswer.text}}
     {{else}}
       Antwort auswählen
     {{/if}}
-  </button>
+  </span>
+
+  {{#if chosenAnswer && chosenAnswer.type === 'text'}}
+    <InputText ref:chosenAnswerInput bind:answer="chosenAnswer" on:input="input(chosenAnswer, event.input)" on:enter />
+  {{/if}}
 
   <ul ref:menu class="mdl-menu mdl-menu--top-left mdl-js-menu mdl-js-ripple-effect" data-mdl-for="choose-answer">
     {{#each answer.options as answer}}
-      <li class="mdl-menu__item" on:click="chosen(answer)">{{answer.text}}</li>
+      <li class="mdl-menu__item" on:click="chosen(answer)">
+        {{answer.text}}
+        {{#if answer.type === 'text'}}...{{/if}}
+      </li>
     {{/each}}
   </ul>
 </div>
 
 <style>
-  button
-  {
-    width: 100%;
-    appearance: none;
-    border: 0;
-    padding: 0;
-    margin: 0;
-    color: inherit;
-    font-size: inherit;
-    background: transparent;
-    outline: 0;
-    text-align: left;
-  }
-
   .mdl-menu
   {
     max-width: calc(100vw - 2rem);
@@ -44,8 +37,15 @@
 </style>
 
 <script>
+  import InputText from './InputText';
+
   export default
   {
+    components:
+    {
+      InputText
+    },
+
     methods:
     {
       reset()
@@ -58,7 +58,29 @@
       {
         this.refs.btn.classList.remove('mdl-color-text--primary');
         this.set({ chosenAnswer });
-        this.fire('chosen', { answer: chosenAnswer });
+
+        if (chosenAnswer.type)
+        {
+          const input = this.refs.chosenAnswerInput.refs.input;
+          input.innerText = '';
+          input.focus();
+        }
+        else
+        {
+          this.fire('chosen', { answer: chosenAnswer });
+        }
+      },
+
+      input(chosenAnswer, input)
+      {
+        if (chosenAnswer.expect.every(word => input.toLowerCase().includes(word)))
+        {
+          this.fire('chosen', { answer: Object.assign({}, chosenAnswer, { text: chosenAnswer.text + ' ' + input }) });
+        }
+        else
+        {
+          this.fire('chosen', {});
+        }
       }
     },
 
