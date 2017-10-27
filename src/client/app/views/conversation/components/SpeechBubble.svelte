@@ -1,7 +1,7 @@
 <div class="speech-bubble {{class}}">
   <div class="arrow {{arrowClass}}"></div>
   <div class="content {{contentClass}}">
-    {{yield}}
+    <slot></slot>
     <div class="wave">
       <span class="dot mdl-color--primary"></span>
       <span class="dot mdl-color--primary"></span>

@@ -1,6 +1,6 @@
 <div class="scrollable invert">
   <div class="invert">
-    {{yield}}
+    <slot></slot>
   </div>
 </div>
 

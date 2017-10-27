@@ -1,25 +1,27 @@
 <div class="conversation">
   <ScrollContainer>
-    {{#each messages as message}}
-      {{#if message.dir == 'out'}}
-        <div in:fade="{ duration: 100 }">
-          <SpeechBubble class="right" contentClass="mdl-color--primary mdl-color-text--primary-contrast" arrowClass="mdl-color-text--primary">
-            {{message.text}}
-          </SpeechBubble>
-        </div>
-      {{else}}
-        <div in:fade="{ duration: 100 }">
-          <SpeechBubble class="left">
-            {{message.text}}
-          </SpeechBubble>
-        </div>
-      {{/if}}
-    {{/each}}
+    <div>
+      {{#each messages as message}}
+        {{#if message.dir == 'out'}}
+          <div in:fade="{ duration: 100 }">
+            <SpeechBubble class="right" contentClass="mdl-color--primary mdl-color-text--primary-contrast" arrowClass="mdl-color-text--primary">
+              {{message.text}}
+            </SpeechBubble>
+          </div>
+        {{else}}
+          <div in:fade="{ duration: 100 }" title="{{message.id}}">
+            <SpeechBubble class="left">
+              {{message.text}}
+            </SpeechBubble>
+          </div>
+        {{/if}}
+      {{/each}}
+    </div>
 
     <div class="typing-indicator">
       {{#if typing}}
         <div in:fly="{ y: 30, duration: 500 }" out:fly="{ y: -50, duration: 300 }">
-          <SpeechBubble class="left typing"></SpeechBubble>
+          <SpeechBubble class="left typing" />
         </div>
       {{/if}}
     </div>
