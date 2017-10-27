@@ -19,7 +19,8 @@
     "pouchdb-replication": "^6.2.0",
     "pouchdb-validation": "^1.2.1",
     "sausage-router": "^1.1.0",
-    "svelte-state-renderer": "^1.2.0"
+    "svelte-state-renderer": "^1.2.0",
+    "svelte-transitions": "^1.1.1"
   },
   "devDependencies": {
     "babili-webpack-plugin": "^0.1.1",

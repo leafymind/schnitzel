@@ -15,7 +15,7 @@ PouchDB
 
 const remote = {};
 const local = {};
-const dbs = ['challenges', 'quests'];
+const dbs = ['challenges', 'quests', 'story'];
 
 dbs.forEach(db =>
 {

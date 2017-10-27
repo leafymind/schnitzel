@@ -1,4 +1,5 @@
 import 'svelte/shared';
+import 'svelte-transitions';
 
 import 'abstract-state-router';
 import 'svelte-state-renderer';
@@ -9,7 +10,7 @@ import 'material-design-lite/src/mdlComponentHandler';
 import 'material-design-lite/src/button/button';
 // import 'material-design-lite/src/checkbox/checkbox';
 // import 'material-design-lite/src/icon-toggle/icon-toggle';
-// import 'material-design-lite/src/menu/menu';
+import 'material-design-lite/src/menu/menu';
 // import 'material-design-lite/src/progress/progress';
 // import 'material-design-lite/src/radio/radio';
 // import 'material-design-lite/src/slider/slider';
