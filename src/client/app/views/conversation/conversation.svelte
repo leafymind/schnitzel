@@ -35,6 +35,8 @@
     <InputChooseText bind:answer on:send="send(messages, answer, event.value)" />
   {{elseif answer.type === 'text'}}
     <InputText bind:answer on:send="send(messages, answer, event.value)" />
+  {{elseif answer.type === 'geo'}}
+    <InputGeo bind:answer on:arrived="send(messages, answer, event.position)" />
   {{/if}}
 {{else}}
   <Input />
@@ -79,6 +81,7 @@
   import InputChoose from './components/InputChoose';
   import InputChooseText from './components/InputChooseText';
   import InputText from './components/InputText';
+  import InputGeo from './components/InputGeo';
 
   export default
   {
@@ -91,7 +94,8 @@
       Input,
       InputChoose,
       InputText,
-      InputChooseText
+      InputChooseText,
+      InputGeo
     },
 
     // data()
@@ -161,6 +165,26 @@
         }
 
         Story.addIncomming(responses);
+      },
+
+      arrived(position)
+      {
+        console.log(position);
+
+        if (document.hasFocus())
+        {
+          window.navigator.vibrate(200);
+        }
+        else if (Notification.permission === 'granted')
+        {
+          window.navigator.vibrate(500);
+
+          // FIXME this doesn't work without SW.js on mobile chrome :(
+          new Notification('Schnitzel', {
+            body: 'Ziel erreicht!',
+            icon: 'assets/img/logo.png'
+          });
+        }
       }
     },
 

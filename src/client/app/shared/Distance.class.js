@@ -1,9 +1,9 @@
 export class Distance extends Number
 {
-  constructor(a, b)
+  constructor(a, b, unit = 'km')
   {
-    super(getDistanceFromLatLonInKm(a.latitude, a.longitude, b.latitude, b.longitude));
-    this.unit = 'km';
+    super(b ? getDistanceFromLatLonInKm(a.latitude, a.longitude, b.latitude, b.longitude) : a);
+    this.unit = unit;
   }
 
   toString()
