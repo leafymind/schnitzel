@@ -1,67 +1,65 @@
-<span class="container">
-  {{#if answer.prefix}}
-    <span class="prefix">{{answer.prefix}}</span>
-  {{/if}}
-  <span ref:input class="input" contenteditable="true" placeholder="{{answer.placeholder}}" on:keydown="onKeyDown(event, answer)" on:input="onInput(event)"></span>
-  {{#if answer.suffix}}
-    <span class="suffix">{{answer.suffix}}</span>
-  {{/if}}
-</span>
+<Input>
+  <span slot="field">
+    {{#if answer.prefix}}
+      <span>{{answer.prefix}}</span>
+    {{/if}}
+    <span ref:input contenteditable="true" placeholder="{{answer.placeholder}}" on:input="input(answer, event)" on:enter="refs.btn.click()"></span>
+  </span>
+  <button slot="button" disabled ref:btn on:click="fire('send', { value })"
+          class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+    <i class="material-icons">send</i>
+  </button>
+</Input>
 
 <style>
-  .input
+  ref:input
   {
     display: inline-block;
     outline: 0;
     white-space: nowrap;
   }
 
-  .input:empty:not([placeholder=""])::before
+  ref:input br
+  {
+    display: none;
+  }
+
+  ref:input:empty:not([placeholder=""])::before
   {
     content: attr(placeholder);
     color: #999;
   }
 
-  .input:empty[placeholder=""]::before
+  ref:input:empty[placeholder=""]::before
   {
-    content: '...';
+    content: 'Antwort';
     color: #999;
-  }
-
-  .prefix,
-  .suffix
-  {
-    white-space: pre;
-  }
-
-  .prefix::after,
-  .suffix::before
-  {
-    content: ' ';
   }
 </style>
 
 <script>
+  import { enter } from '../../../shared/component-events';
+  import Input from './Input';
+
   export default
   {
+    events: { enter },
+
+    components: { Input },
+
     methods:
     {
-      onKeyDown(event, answer)
+      input(answer, event)
       {
-        if (event.keyCode === 13)
+        const value = event.target.innerText;
+        const valid = answer.expect ? answer.expect.every(word => value.toLowerCase().includes(word)) : value.length >= answer.min;
+
+        this.refs.btn.disabled = !valid;
+
+        if (valid)
         {
-          event.preventDefault();
-
-          if (!answer.expect || answer.expect.every(word => event.target.innerText.toLowerCase().includes(word)))
-          {
-            this.fire('enter');
-          }
+          this.set({ value });
         }
-      },
-
-      onInput(event)
-      {
-        this.fire('input', { input: event.target.innerText });
       }
     },
 

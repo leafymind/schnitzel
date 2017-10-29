@@ -1,25 +1,26 @@
-<div>
-  <span ref:btn id="choose-answer" class="mdl-color-text--primary">
-    {{#if chosenAnswer}}
-      {{chosenAnswer.text}}
-    {{else}}
-      Antwort auswählen
-    {{/if}}
-  </span>
+<Input>
+  <div slot="field">
+    <span ref:dropdown id="choose-answer" class="mdl-color-text--primary">
+      {{#if selected}}
+        {{selected.text}}
+      {{else}}
+        Antwort auswählen
+      {{/if}}
+    </span>
+  </div>
+  <button slot="button" disabled ref:btn on:click="fire('send', { selected })"
+          class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+    <i class="material-icons">send</i>
+  </button>
+</Input>
 
-  {{#if chosenAnswer && chosenAnswer.type === 'text'}}
-    <InputText ref:chosenAnswerInput bind:answer="chosenAnswer" on:input="input(chosenAnswer, event.input)" on:enter />
-  {{/if}}
-
-  <ul ref:menu class="mdl-menu mdl-menu--top-left mdl-js-menu mdl-js-ripple-effect" data-mdl-for="choose-answer">
-    {{#each answer.options as answer}}
-      <li class="mdl-menu__item" on:click="chosen(answer)">
-        {{answer.text}}
-        {{#if answer.type === 'text'}}...{{/if}}
-      </li>
-    {{/each}}
-  </ul>
-</div>
+<ul ref:menu class="mdl-menu mdl-menu--top-left mdl-js-menu mdl-js-ripple-effect" data-mdl-for="choose-answer">
+  {{#each answer.options as answer}}
+    <li class="mdl-menu__item" on:click="chosen(answer)">
+      {{answer.text}}
+    </li>
+  {{/each}}
+</ul>
 
 <style>
   .mdl-menu
@@ -37,50 +38,19 @@
 </style>
 
 <script>
-  import InputText from './InputText';
+  import Input from './Input';
 
   export default
   {
-    components:
-    {
-      InputText
-    },
+    components: { Input },
 
     methods:
     {
-      reset()
+      chosen(selected)
       {
-        this.set({ chosenAnswer: undefined });
-        this.refs.btn.classList.add('mdl-color-text--primary');
-      },
-
-      chosen(chosenAnswer)
-      {
-        this.refs.btn.classList.remove('mdl-color-text--primary');
-        this.set({ chosenAnswer });
-
-        if (chosenAnswer.type)
-        {
-          const input = this.refs.chosenAnswerInput.refs.input;
-          input.innerText = '';
-          input.focus();
-        }
-        else
-        {
-          this.fire('chosen', { answer: chosenAnswer });
-        }
-      },
-
-      input(chosenAnswer, input)
-      {
-        if (chosenAnswer.expect.every(word => input.toLowerCase().includes(word)))
-        {
-          this.fire('chosen', { answer: Object.assign({}, chosenAnswer, { text: chosenAnswer.text + ' ' + input }) });
-        }
-        else
-        {
-          this.fire('chosen', {});
-        }
+        this.refs.dropdown.classList.remove('mdl-color-text--primary');
+        this.refs.btn.disabled = false;
+        this.set({ selected });
       }
     },
 

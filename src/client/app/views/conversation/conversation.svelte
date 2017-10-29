@@ -28,22 +28,17 @@
   </ScrollContainer>
 </div>
 
-<div class="input">
-  <div class="text-field">
-    {{#if answer && answer.type === 'choise' && answer.options.length}}
-      <InputChoose ref:inputChoose bind:answer on:chosen="onChoise(event.answer)" on:enter="send(messages, answer, input)" />
-    {{elseif answer && answer.type === 'text'}}
-      <InputText ref:inputText bind:answer on:input="onInput(answer, event.input)" on:enter="send(messages, answer, input)" />
-    {{else}}
-      <div class="mdl-color-text--grey">
-        Antwort auswählen
-      </div>
-    {{/if}}
-  </div>
-  <button ref:sendButton on:click="send(messages, answer, input)" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-    <i class="material-icons">send</i>
-  </button>
-</div>
+{{#if answer}}
+  {{#if answer.type === 'choise' && answer.options.length}}
+    <InputChoose bind:answer on:send="send(messages, answer, event.selected)" />
+  {{elseif answer.type === 'choise-text' && answer.options.length}}
+    <InputChooseText bind:answer on:send="send(messages, answer, event.value)" />
+  {{elseif answer.type === 'text'}}
+    <InputText bind:answer on:send="send(messages, answer, event.value)" />
+  {{/if}}
+{{else}}
+  <Input />
+{{/if}}
 
 <style>
   :global(.mdl-layout__content),
@@ -64,20 +59,6 @@
     flex: 1;
   }
 
-  .input
-  {
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    background-color: #fff;
-    border-top: 1px solid rgba(0, 0, 0, .3);
-  }
-
-  .input > div
-  {
-    flex: 1;
-  }
-
   .typing-indicator
   {
     height: 52px;
@@ -94,7 +75,9 @@
 
   import ScrollContainer from './components/ScrollContainer';
   import SpeechBubble from './components/SpeechBubble';
+  import Input from './components/Input';
   import InputChoose from './components/InputChoose';
+  import InputChooseText from './components/InputChooseText';
   import InputText from './components/InputText';
 
   export default
@@ -105,8 +88,10 @@
     {
       ScrollContainer,
       SpeechBubble,
+      Input,
       InputChoose,
-      InputText
+      InputText,
+      InputChooseText
     },
 
     // data()
@@ -116,25 +101,17 @@
 
     methods:
     {
-      onChoise(input)
-      {
-        this.set({ input });
-        this.refs.sendButton.disabled = !input;
-      },
-
-      onInput(answer, input)
-      {
-        this.set({ input });
-        this.refs.sendButton.disabled = !input.length;
-      },
-
       send(messages, answer, input)
       {
         let text;
 
-        if (answer.type === 'choise')
+        if (answer.type === 'choise' || answer.type === 'choise-text')
         {
           text = input.text;
+        }
+        else if (answer.type === 'geo')
+        {
+          text = answer.text;
         }
         else if (answer.type === 'text')
         {
@@ -157,7 +134,6 @@
 
         Story.addOutgoing({ text, dir: 'out' });
 
-        this.refs.sendButton.disabled = true;
         this.set({ answer: undefined, messages });
 
         console.log(answer, input);
@@ -190,8 +166,6 @@
 
     oncreate()
     {
-      this.refs.sendButton.disabled = true;
-
       const messages = this.get('messages');
 
       Story.on('typing', () =>
