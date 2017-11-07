@@ -9,21 +9,32 @@ function delayOf(time)
   return new Promise(resolve => setTimeout(resolve, time));
 }
 
+function userStore(storyName, callback)
+{
+  return DB.local.user.get(storyName)
+    .then(story => DB.local.user.put(Object.assign({}, story, callback(story))))
+    .catch(console.error.bind(console))
+  ;
+}
+
 class Story extends EventEmitter
 {
   addIncomming(ids)
   {
     const storiesIterator = ids.map(id => DB.local.story.get(id)).entries();
 
-    delayOf(1000).then(() =>
-    {
-      this._walk(storiesIterator);
-    });
+    return userStore('story', () => ({ query: ids }))
+      .then(() => delayOf(1000))
+      .then(() => this._walk(storiesIterator))
+    ;
   }
 
   addOutgoing(message)
   {
-    this.emit('message', message);
+    return userStore('story', entry => ({ messages: entry.messages.concat([message]) })).then(() =>
+    {
+      this.emit('message', message);
+    });
   }
 
   _walk(storiesIterator)
@@ -44,6 +55,10 @@ class Story extends EventEmitter
           {
             wait += story.message.delay;
           }
+
+          story.message.text = format(story.message.text, info);
+          story.message.id = story._id;
+
           delayOf(wait)
             .then(() =>
             {
@@ -54,11 +69,17 @@ class Story extends EventEmitter
                 return delayOf((story.message.text.length * 50));
               }
             })
+            .then(() => userStore('story', entry =>
+            {
+              entry.query.splice(entry.query.indexOf(story._id), 1);
+
+              return {
+                messages: entry.messages.concat([story.message]),
+                query: entry.query
+              };
+            }))
             .then(() =>
             {
-              story.message.text = format(story.message.text, info);
-              story.message.id = story._id;
-
               this.emit('message', story.message);
 
               if (story.answer)
@@ -72,8 +93,17 @@ class Story extends EventEmitter
         }
         else if (story.answer)
         {
-          this.emit('answer', story.answer);
-          this._walk(storiesIterator);
+          userStore('story', entry =>
+          {
+            entry.query.splice(entry.query.indexOf(story._id), 1);
+            return { query: entry.query };
+          })
+            .then(() =>
+            {
+              this.emit('answer', story.answer);
+              this._walk(storiesIterator);
+            })
+          ;
         }
       });
     }

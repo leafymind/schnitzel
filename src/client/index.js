@@ -1,17 +1,17 @@
+import * as OfflinePluginRuntime from 'offline-plugin/runtime';
 import DB from './app/shared/DB';
 import { stateRouter } from './app/shared/Router';
 import AppRoute from './app/app.route';
 
 if (process.env.ENV === 'production')
 {
-  const OfflinePluginRuntime = require('offline-plugin/runtime');
-
   const snackbarContainer = document.getElementById('snackbar');
 
   OfflinePluginRuntime.install
   ({
     onInstalled()
     {
+      console.log('installiert');
       snackbarContainer.MaterialSnackbar.showSnackbar({ message: 'App installiert.' });
     },
 
@@ -54,6 +54,7 @@ DB.isDataAvailable()
   })
   .then(() =>
   {
+    DB.download();
     AppRoute(stateRouter);
     stateRouter.evaluateCurrentRoute('app');
   })

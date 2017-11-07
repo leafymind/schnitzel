@@ -14,7 +14,7 @@ PouchDB
 ;
 
 const API = 'https://schnitzel.freiken-douhl.de/db/';
-const dbs = ['story'];
+const dbs = ['challenges', 'story'];
 const remote = {};
 const local = {};
 
@@ -25,6 +25,7 @@ dbs.forEach(db =>
 });
 
 remote.session = new PouchDB(API + '/', { skip_setup: true });
+local.user = new PouchDB('user');
 
 export default {
   remote,

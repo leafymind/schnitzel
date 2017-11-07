@@ -37,6 +37,8 @@
     <InputText bind:answer on:send="send(messages, answer, event.value)" />
   {{elseif answer.type === 'geo'}}
     <InputGeo bind:answer on:arrived="send(messages, answer, event.position)" />
+  {{else}}
+    <Input />
   {{/if}}
 {{else}}
   <Input />
@@ -136,35 +138,36 @@
           text = parts.join(' ');
         }
 
-        Story.addOutgoing({ text, dir: 'out' });
-
         this.set({ answer: undefined, messages });
 
-        console.log(answer, input);
+        // console.log(answer, input);
 
-        const responses = [];
-
-        if (input.trigger)
+        Story.addOutgoing({ text, dir: 'out' }).then(() =>
         {
-          responses.push(...input.trigger);
-        }
+          const responses = [];
 
-        if (answer.trigger)
-        {
-          responses.push(...answer.trigger);
-        }
+          if (input.trigger)
+          {
+            responses.push(...input.trigger);
+          }
 
-        if (answer.finally && answer.options.length === 1)
-        {
-          responses.push(...answer.finally);
-        }
+          if (answer.trigger)
+          {
+            responses.push(...answer.trigger);
+          }
 
-        if (answer.action === 'saveName')
-        {
-          info.name = input;
-        }
+          if (answer.finally && answer.options.length === 1)
+          {
+            responses.push(...answer.finally);
+          }
 
-        Story.addIncomming(responses);
+          if (answer.action === 'saveName')
+          {
+            info.name = input;
+          }
+
+          Story.addIncomming(responses);
+        });
       },
 
       arrived(position)
@@ -191,6 +194,7 @@
     oncreate()
     {
       const messages = this.get('messages');
+      const query = this.get('query');
 
       Story.on('typing', () =>
       {
@@ -228,7 +232,7 @@
 
       Story.on('answer', answer =>
       {
-        if (answer.type === 'choise')
+        if (answer.type === 'choise' || answer.type === 'choise-text')
         {
           answer.options = answer.options
             .filter(option =>
@@ -248,6 +252,12 @@
 
         this.set({ answer });
       });
+
+      if (query.length)
+      {
+        console.log(query);
+        Story.addIncomming(query);
+      }
     }
   };
 </script>

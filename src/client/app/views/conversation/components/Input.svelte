@@ -1,7 +1,7 @@
 <div class="input">
   <div class="field">
     <slot name="field">
-      <div class="mdl-color-text--grey">Antwort auswählen</div>
+      <div class="mdl-color-text--grey">Auf Antwort warten ...</div>
     </slot>
   </div>
   <slot name="button">

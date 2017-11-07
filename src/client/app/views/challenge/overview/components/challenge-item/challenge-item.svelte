@@ -1,10 +1,9 @@
 <div class="mdl-card mdl-shadow--2dp challenge-item" on:longpress="del(challenge)">
-  <div class="mdl-card__title">
+  <div class="mdl-card__title" on:tap="details(challenge)">
     <h2 class="mdl-card__title-text">{{challenge.title}}</h2>
   </div>
-  <!-- <div class="mdl-card__supporting-text">{{challenge.desc}}</div> -->
   <div class="mdl-card__actions mdl-card--border">
-    <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" on:tap="open(challenge)">
+    <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" on:tap="start(challenge)">
       Challenge starten
     </a>
   </div>
@@ -40,7 +39,6 @@
 <script>
   import { tap, longpress } from '../../../../../shared/component-events';
   import { stateRouter } from '../../../../../shared/Router';
-  import DB from '../../../../../shared/DB';
 
   export default
   {
@@ -51,22 +49,14 @@
     },
     methods:
     {
-      open(challenge)
+      start(challenge)
       {
-        stateRouter.go('app.play', { id: challenge._id });
+        stateRouter.go('app.conversation', { id: challenge._id });
       },
 
-      del(challenge)
+      details(challenge)
       {
-        // TODO: only for testing, should be flagged as deleted later
-        DB.local.challenges.remove(challenge)
-          .catch(console.error.bind())
-          .then(() =>
-          {
-            console.log('Gelöscht!');
-            // TODO Reload state
-          })
-        ;
+        stateRouter.go('app.play', { id: challenge._id });
       },
 
       share(challenge, url)
@@ -79,8 +69,8 @@
         };
 
         navigator.share(shareObj)
-          .then(console.error.bind())
-          .catch(console.log.bind())
+          .then(console.log.bind())
+          .catch(console.error.bind())
         ;
       }
     }
