@@ -2,9 +2,14 @@
 (temporary project name)
 
 ## Setup
-1. Install NodeJS + Yarn
-1. Run `yarn install` or `npm i`
-2. Run `yarn start` or `npm start`
+1. Install NodeJS
+1. Run `npm i`
+
+## Dev Server
+Run `npm start` to start the development environment.
+
+## Build
+Run `npm run build` to execute build process.
 
 ## Technology Stack
 #### Client

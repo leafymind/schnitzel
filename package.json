@@ -6,7 +6,7 @@
     "start": "webpack-dev-server --inline --progress --config build/config/webpack.conf.dev.js --port 8080",
     "prod": "webpack-dev-server --inline --progress --config build/config/webpack.conf.prod.js --port 8080",
     "build": "rimraf dist && webpack --config build/config/webpack.conf.prod.js --progress --profile --bail",
-    "db-update": "update-couch-designs --db ${DB}/challenges --docs 'src/db/challenges/*.js' && update-couch-designs --db ${DB}/quests --docs 'src/db/quests/*.js'"
+    "db-update": "update-couch-designs --db ${DB}/challenges --docs 'src/db/challenges/*.js'"
   },
   "dependencies": {
     "abstract-state-router": "^5.16.2",
