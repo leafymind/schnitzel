@@ -37,6 +37,8 @@
     <InputText bind:answer on:send="send(messages, answer, event.value)" />
   {{elseif answer.type === 'geo'}}
     <InputGeo bind:answer on:arrived="send(messages, answer, event.position)" />
+  {{else}}
+    <Input />
   {{/if}}
 {{else}}
   <Input />
