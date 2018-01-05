@@ -1,10 +1,13 @@
 <div class="input">
   <div class="field">
     <slot name="field">
-      <div class="mdl-color-text--grey">Antwort auswählen</div>
+      <div class="mdl-color-text--grey">Auf Antwort warten...</div>
     </slot>
   </div>
   <slot name="button">
+    <button class="mdl-button mdl-button--icon mdl-color-text--accent" on:click="fire('fastforward')">
+      <i class="material-icons">fast_forward</i>
+    </button>
     <button disabled class="mdl-button mdl-button--icon">
       <i class="material-icons">send</i>
     </button>

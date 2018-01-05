@@ -38,10 +38,10 @@
   {{elseif answer.type === 'geo'}}
     <InputGeo bind:answer on:arrived="send(messages, answer, event.position)" />
   {{else}}
-    <Input />
+    <Input on:fastforward="fastForward()" />
   {{/if}}
 {{else}}
-  <Input />
+  <Input on:fastforward="fastForward()" />
 {{/if}}
 
 <style>
@@ -187,6 +187,14 @@
             icon: 'assets/img/logo.png'
           });
         }
+      },
+
+      fastForward()
+      {
+        console.log('fast forward clicked.');
+        // TODO: show explanation dialog on first click
+        // TODO: skip typing time and delays
+        // TODO: charge credits/points for this action
       }
     },
 
