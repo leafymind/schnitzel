@@ -27,7 +27,7 @@
   {
     color: #fff;
     height: 120px;
-    background: url('https://getmdl.io/assets/demos/welcome_card.jpg') center / cover;
+    background: url(../../../../../assets/img/challenge-bg.jpg) center / cover;
     text-shadow: 2px 2px 3px #000;
   }
 
