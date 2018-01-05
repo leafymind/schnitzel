@@ -2,7 +2,7 @@
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">{{challenge.title}}</h2>
   </div>
-  <!-- <div class="mdl-card__supporting-text">{{challenge.desc}}</div> -->
+  <div class="mdl-card__supporting-text">{{challenge.desc}}</div>
   <div class="mdl-card__actions mdl-card--border">
     <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" on:tap="open(challenge)">
       Challenge starten
@@ -53,7 +53,7 @@
     {
       open(challenge)
       {
-        stateRouter.go('app.play', { id: challenge._id });
+        stateRouter.go('app.conversation', { id: challenge._id });
       },
 
       del(challenge)
