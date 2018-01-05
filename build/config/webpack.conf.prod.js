@@ -2,10 +2,10 @@ const path = require('path');
 
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
-const BabiliPlugin = require("babili-webpack-plugin");
+const BabiliPlugin = require('babili-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
-const CompressionPlugin = require("compression-webpack-plugin");
+const ZopfliPlugin = require('zopfli-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const commonConfig = require('./webpack.conf.js');
@@ -97,11 +97,12 @@ module.exports = webpackMerge(commonConfig,
       }
     }),
 
-		new CompressionPlugin
+		new ZopfliPlugin
     ({
 			asset: "[path].gz[query]",
 			algorithm: "zopfli",
 			test: /\.(js|html)$/,
+			threshold: 10240,
 			minRatio: 0.8
 		}),
 
