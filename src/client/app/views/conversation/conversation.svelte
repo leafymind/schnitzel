@@ -5,13 +5,13 @@
         {{#if message.dir == 'out'}}
           <div in:fade="{ duration: 100 }">
             <SpeechBubble class="right" contentClass="mdl-color--primary mdl-color-text--primary-contrast" arrowClass="mdl-color-text--primary">
-              {{message.text}}
+              <span class="text">{{message.text}}</span>
             </SpeechBubble>
           </div>
         {{else}}
           <div in:fade="{ duration: 100 }" title="{{message.id}}">
             <SpeechBubble class="left">
-              {{message.text}}
+              <span class="text">{{message.text}}</span>
             </SpeechBubble>
           </div>
         {{/if}}

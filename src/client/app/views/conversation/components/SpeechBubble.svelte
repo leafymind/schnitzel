@@ -1,12 +1,13 @@
 <div class="speech-bubble {{class}}">
   <div class="arrow {{arrowClass}}"></div>
   <div class="content {{contentClass}}">
-    <slot></slot>
-    <div class="wave">
-      <span class="dot mdl-color--primary"></span>
-      <span class="dot mdl-color--primary"></span>
-      <span class="dot mdl-color--primary"></span>
-    </div>
+    <slot>
+      <div class="wave">
+        <span class="dot mdl-color--primary"></span>
+        <span class="dot mdl-color--primary"></span>
+        <span class="dot mdl-color--primary"></span>
+      </div>
+    </slot>
   </div>
 </div>
 
@@ -26,7 +27,7 @@
     border-radius: 10px;
   }
 
-  .speech-bubble:not(.typing) .content
+  .speech-bubble .content .text
   {
     white-space: pre-line;
   }
