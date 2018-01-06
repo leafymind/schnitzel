@@ -22,7 +22,7 @@ if (process.env.ENV === 'production')
         message: 'Neue Version ist bereit zur Installation.',
         actionText: 'Aktualisieren',
         actionHandler: () => OfflinePluginRuntime.applyUpdate(),
-        timeout: 5000
+        timeout: 15000
       });
     },
 
