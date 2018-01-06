@@ -85,6 +85,14 @@
   import InputText from './components/InputText';
   import InputGeo from './components/InputGeo';
 
+  function hello()
+  {
+    return function decorator(target)
+    {
+      console.warn(target, 'is deprecated!');
+    };
+  }
+
   export default
   {
     transitions: { fly, fade },
@@ -106,7 +114,10 @@
     // },
 
     methods:
+
+    methods: new class Methods
     {
+      @hello()
       send(messages, answer, input)
       {
         let text;
@@ -167,7 +178,7 @@
         }
 
         Story.addIncomming(responses);
-      },
+      }
 
       arrived(position)
       {

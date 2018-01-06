@@ -30,7 +30,8 @@ module.exports = {
   resolveLoader: {
     alias:
     {
-      'fix-standalone-svelte-directives-loader': path.join(__dirname, '../loader/fix-standalone-svelte-directives')
+      'fix-standalone-svelte-directives-loader': path.join(__dirname, '../loader/fix-standalone-svelte-directives'),
+      'babel-html-loader': path.join(__dirname, '../loader/babel-html-loader')
     }
   },
 
@@ -54,6 +55,14 @@ module.exports = {
             }
           },
           'fix-standalone-svelte-directives-loader',
+          {
+            loader: 'babel-html-loader',
+            options:
+            {
+              presets: ['@babel/preset-env'],
+              plugins: [require('babel-plugin-transform-decorators-legacy')]
+            }
+          },
           'postcss-html-loader'
         ]
       }
