@@ -39,6 +39,7 @@
     "postcss-html-loader": "bbuhler/postcss-html-loader#8adbbb0",
     "rimraf": "^2.6.2",
     "svelte": "^1.50.1",
+    "svelte-hot-loader": "^1.5.0",
     "svelte-loader": "^2.3.3",
     "update-couch-designs": "bbuhler/update-couch-designs",
     "webpack": "^3.10.0",

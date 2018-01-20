@@ -46,6 +46,7 @@ module.exports = {
         test: /\.svelte$/,
         use:
         [
+          'svelte-hot-loader',
           {
             loader: 'svelte-loader',
             options:
