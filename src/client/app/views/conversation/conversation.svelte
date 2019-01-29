@@ -72,6 +72,7 @@
 <script>
   import Story from '../../shared/Story.service';
   import Header from '../../shared/Header.service';
+  import notify from '../../shared/Notify.service';
   import info from '../../shared/info';
   import { format } from '../../shared/format';
 
@@ -173,20 +174,7 @@
       {
         console.log(position);
 
-        if (document.hasFocus())
-        {
-          window.navigator.vibrate(200);
-        }
-        else if (Notification.permission === 'granted')
-        {
-          window.navigator.vibrate(500);
-
-          // FIXME this doesn't work without SW.js on mobile chrome :(
-          new Notification('Schnitzel', {
-            body: 'Ziel erreicht!',
-            icon: 'assets/img/logo.png'
-          });
-        }
+        notify('Ziel erreicht!', null, 'location_on');
       }
     },
 
@@ -211,20 +199,7 @@
 
         if (message.dir !== 'out')
         {
-          if (document.hasFocus())
-          {
-            window.navigator.vibrate(200);
-          }
-          else if (Notification.permission === 'granted')
-          {
-            window.navigator.vibrate(500);
-
-            // FIXME this doesn't work without SW.js on mobile chrome :(
-            new Notification('Schnitzel', {
-              body: message.text,
-              icon: 'assets/img/logo.png'
-            });
-          }
+          notify(message.text, info.hero);
         }
       });
 

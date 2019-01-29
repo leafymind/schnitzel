@@ -38,11 +38,6 @@ if (process.env.ENV === 'production')
   });
 }
 
-if (Notification.permission !== 'denied')
-{
-  Notification.requestPermission();
-}
-
 DB.isDataAvailable()
   .then(() =>
   {

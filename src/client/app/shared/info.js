@@ -17,6 +17,7 @@ function getMobileOperatingSystem()
 }
 
 const info = {
+  appName: 'Schnitzel',
   system: getMobileOperatingSystem(),
   hero: 'Leon'
 };
